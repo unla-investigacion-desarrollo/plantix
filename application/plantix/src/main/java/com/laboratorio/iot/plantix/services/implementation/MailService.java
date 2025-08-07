@@ -1,6 +1,6 @@
-package com.IoT.accesio.services.implementation;
+package com.laboratorio.iot.plantix.services.implementation;
 
-import com.IoT.accesio.services.IMailService;
+import com.laboratorio.iot.plantix.services.IMailService;
 import org.springframework.stereotype.Service;
 
 @Service

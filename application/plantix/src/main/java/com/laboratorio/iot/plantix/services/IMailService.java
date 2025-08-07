@@ -1,4 +1,4 @@
-package com.IoT.accesio.services;
+package com.laboratorio.iot.plantix.services;
 
 public interface IMailService {
 }
