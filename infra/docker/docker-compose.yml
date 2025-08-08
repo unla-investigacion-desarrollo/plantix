@@ -13,7 +13,11 @@ services:
       APP_PASSWORD: "${APP_APP_PASSWORD}"
     ports:
       - "8080:8080"
-    restart: no
+    restart: unless-stopped
+    depends_on:
+      plantix-db:
+        condition: service_healthy
+    
 
   plantix-db:
     image: mysql:8.0
@@ -23,8 +27,15 @@ services:
     restart: unless-stopped
     volumes:
       - plantix_db_data:/var/lib/mysql
+      - ../../application/plantixDB:/docker-entrypoint-initdb.d
     ports:
       - "3310:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin","ping", "-h","localhost","-p0806"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
 
   broker-mosquitto:
     image: eclipse-mosquitto
@@ -36,3 +47,4 @@ services:
       - ../../brokerMQTT/log:/mosquitto/log
 volumes:
   plantix_db_data:
+  
