@@ -51,3 +51,194 @@ To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
 1754534536: Opening ipv4 listen socket on port 1883.
 1754534536: Opening ipv6 listen socket on port 1883.
 1754534536: mosquitto version 2.0.20 running
+1754606449: mosquitto version 2.0.20 starting
+1754606449: Config loaded from /mosquitto/config/mosquitto.conf.
+1754606449: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754606449: Opening ipv4 listen socket on port 1883.
+1754606449: Opening ipv6 listen socket on port 1883.
+1754606449: mosquitto version 2.0.20 running
+1754606496: New connection from 172.18.0.1:55998 on port 1883.
+1754606496: Sending CONNACK to mqttx_83e0c046 (0, 135)
+1754606496: Client mqttx_83e0c046 disconnected, not authorised.
+1754606699: New connection from 172.18.0.1:34598 on port 1883.
+1754606699: Sending CONNACK to mqttx_83e0c046 (0, 135)
+1754606699: Client mqttx_83e0c046 disconnected, not authorised.
+1754606718: New connection from 172.18.0.1:35860 on port 1883.
+1754606718: Client <unknown> disconnected due to protocol error.
+1754606735: New connection from 172.18.0.1:53994 on port 1883.
+1754606735: Sending CONNACK to mqttx_83e0c046 (0, 135)
+1754606735: Client mqttx_83e0c046 disconnected, not authorised.
+1754607017: New connection from 172.18.0.1:55520 on port 1883.
+1754607017: Sending CONNACK to mqttx_83e0c046 (0, 135)
+1754607017: Client mqttx_83e0c046 disconnected, not authorised.
+1754607311: mosquitto version 2.0.20 starting
+1754607311: Config loaded from /mosquitto/config/mosquitto.conf.
+1754607311: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754607311: Opening ipv4 listen socket on port 1883.
+1754607311: Opening ipv6 listen socket on port 1883.
+1754607311: mosquitto version 2.0.20 running
+1754607328: New connection from 172.18.0.1:44922 on port 1883.
+1754607328: New client connected from 172.18.0.1:44922 as mqttx_83e0c046 (p5, c1, k60, u'newUser').
+1754607328: No will message specified.
+1754607328: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754607328: Received SUBSCRIBE from mqttx_83e0c046
+1754607328: 	emqx/esp32 (QoS 0)
+1754607328: mqttx_83e0c046 0 emqx/esp32
+1754607328: Sending SUBACK to mqttx_83e0c046
+1754607329: Received SUBSCRIBE from mqttx_83e0c046
+1754607329: 	clima/esp32 (QoS 0)
+1754607329: mqttx_83e0c046 0 clima/esp32
+1754607329: Sending SUBACK to mqttx_83e0c046
+1754607334: Received DISCONNECT from mqttx_83e0c046
+1754607334: Client mqttx_83e0c046 disconnected.
+1754607341: mosquitto version 2.0.20 terminating
+1754607341: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754607375: mosquitto version 2.0.20 starting
+1754607375: Config loaded from /mosquitto/config/mosquitto.conf.
+1754607375: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754607375: Opening ipv4 listen socket on port 1883.
+1754607375: Opening ipv6 listen socket on port 1883.
+1754607375: mosquitto version 2.0.20 running
+1754607514: New connection from 172.19.0.1:57206 on port 1883.
+1754607514: Sending CONNACK to mqttx_83e0c046 (0, 135)
+1754607514: Client mqttx_83e0c046 disconnected, not authorised.
+1754607584: New connection from 172.19.0.1:44744 on port 1883.
+1754607584: Sending CONNACK to mqttx_83e0c046 (0, 135)
+1754607584: Client mqttx_83e0c046 disconnected, not authorised.
+1754608395: New connection from 172.19.0.1:50810 on port 1883.
+1754608395: Sending CONNACK to mqttx_83e0c046 (0, 135)
+1754608395: Client mqttx_83e0c046 disconnected, not authorised.
+1754609176: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754610534: mosquitto version 2.0.20 starting
+1754610534: Config loaded from /mosquitto/config/mosquitto.conf.
+1754610534: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754610534: Opening ipv4 listen socket on port 1883.
+1754610534: Opening ipv6 listen socket on port 1883.
+1754610534: mosquitto version 2.0.20 running
+1754610555: New connection from 172.18.0.1:56358 on port 1883.
+1754610555: New client connected from 172.18.0.1:56358 as mqttx_83e0c046 (p5, c1, k60, u'plantix').
+1754610555: No will message specified.
+1754610555: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754610555: Received SUBSCRIBE from mqttx_83e0c046
+1754610555: 	emqx/esp32 (QoS 0)
+1754610555: mqttx_83e0c046 0 emqx/esp32
+1754610555: Sending SUBACK to mqttx_83e0c046
+1754610556: Received SUBSCRIBE from mqttx_83e0c046
+1754610556: 	clima/esp32 (QoS 0)
+1754610556: mqttx_83e0c046 0 clima/esp32
+1754610556: Sending SUBACK to mqttx_83e0c046
+1754610616: Received PINGREQ from mqttx_83e0c046
+1754610616: Sending PINGRESP to mqttx_83e0c046
+1754610677: Received PINGREQ from mqttx_83e0c046
+1754610677: Sending PINGRESP to mqttx_83e0c046
+1754610751: Received PINGREQ from mqttx_83e0c046
+1754610751: Sending PINGRESP to mqttx_83e0c046
+1754610811: Received PINGREQ from mqttx_83e0c046
+1754610811: Sending PINGRESP to mqttx_83e0c046
+1754610871: Received PINGREQ from mqttx_83e0c046
+1754610871: Sending PINGRESP to mqttx_83e0c046
+1754610932: Received PINGREQ from mqttx_83e0c046
+1754610932: Sending PINGRESP to mqttx_83e0c046
+1754611026: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754611030: New connection from 172.18.0.1:40310 on port 1883.
+1754611030: New client connected from 172.18.0.1:40310 as mqttx_83e0c046 (p5, c1, k60, u'plantix').
+1754611030: No will message specified.
+1754611030: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754611030: Received SUBSCRIBE from mqttx_83e0c046
+1754611030: 	emqx/esp32 (QoS 0)
+1754611030: mqttx_83e0c046 0 emqx/esp32
+1754611030: Sending SUBACK to mqttx_83e0c046
+1754611030: Received SUBSCRIBE from mqttx_83e0c046
+1754611030: 	clima/esp32 (QoS 0)
+1754611030: mqttx_83e0c046 0 clima/esp32
+1754611030: Sending SUBACK to mqttx_83e0c046
+1754611050: Received DISCONNECT from mqttx_83e0c046
+1754611050: Client mqttx_83e0c046 disconnected.
+1754611509: New connection from 172.18.0.1:55328 on port 1883.
+1754611509: New client connected from 172.18.0.1:55328 as mqttx_83e0c046 (p5, c1, k60, u'plantix').
+1754611509: No will message specified.
+1754611509: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754611509: Received SUBSCRIBE from mqttx_83e0c046
+1754611509: 	emqx/esp32 (QoS 0)
+1754611509: mqttx_83e0c046 0 emqx/esp32
+1754611509: Sending SUBACK to mqttx_83e0c046
+1754611509: Received SUBSCRIBE from mqttx_83e0c046
+1754611509: 	clima/esp32 (QoS 0)
+1754611509: mqttx_83e0c046 0 clima/esp32
+1754611509: Sending SUBACK to mqttx_83e0c046
+1754611551: mosquitto version 2.0.20 terminating
+1754611551: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754611560: mosquitto version 2.0.20 starting
+1754611560: Config loaded from /mosquitto/config/mosquitto.conf.
+1754611560: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754611560: Opening ipv4 listen socket on port 1883.
+1754611560: Opening ipv6 listen socket on port 1883.
+1754611560: mosquitto version 2.0.20 running
+1754611621: mosquitto version 2.0.20 terminating
+1754611621: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754611707: mosquitto version 2.0.20 starting
+1754611707: Config loaded from /mosquitto/config/mosquitto.conf.
+1754611707: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754611707: Opening ipv4 listen socket on port 1883.
+1754611707: Opening ipv6 listen socket on port 1883.
+1754611707: mosquitto version 2.0.20 running
+1754612136: mosquitto version 2.0.20 terminating
+1754612136: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754612150: mosquitto version 2.0.20 starting
+1754612150: Config loaded from /mosquitto/config/mosquitto.conf.
+1754612150: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754612150: Opening ipv4 listen socket on port 1883.
+1754612150: Opening ipv6 listen socket on port 1883.
+1754612150: mosquitto version 2.0.20 running
+1754612602: mosquitto version 2.0.20 terminating
+1754612602: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754612611: mosquitto version 2.0.20 starting
+1754612611: Config loaded from /mosquitto/config/mosquitto.conf.
+1754612611: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754612611: Opening ipv4 listen socket on port 1883.
+1754612611: Opening ipv6 listen socket on port 1883.
+1754612611: mosquitto version 2.0.20 running
+1754612619: mosquitto version 2.0.20 terminating
+1754612619: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754612863: mosquitto version 2.0.20 starting
+1754612863: Config loaded from /mosquitto/config/mosquitto.conf.
+1754612863: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754612863: Opening ipv4 listen socket on port 1883.
+1754612863: Opening ipv6 listen socket on port 1883.
+1754612863: mosquitto version 2.0.20 running
+1754612879: mosquitto version 2.0.20 terminating
+1754612879: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754612981: mosquitto version 2.0.20 starting
+1754612981: Config loaded from /mosquitto/config/mosquitto.conf.
+1754612981: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754612981: Opening ipv4 listen socket on port 1883.
+1754612981: Opening ipv6 listen socket on port 1883.
+1754612981: mosquitto version 2.0.20 running
+1754613735: mosquitto version 2.0.20 terminating
+1754613735: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754613846: mosquitto version 2.0.20 starting
+1754613846: Config loaded from /mosquitto/config/mosquitto.conf.
+1754613846: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754613846: Opening ipv4 listen socket on port 1883.
+1754613846: Opening ipv6 listen socket on port 1883.
+1754613846: mosquitto version 2.0.20 running
+1754614208: mosquitto version 2.0.20 terminating
+1754614208: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754614248: mosquitto version 2.0.20 starting
+1754614248: Config loaded from /mosquitto/config/mosquitto.conf.
+1754614248: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754614248: Opening ipv4 listen socket on port 1883.
+1754614248: Opening ipv6 listen socket on port 1883.
+1754614248: mosquitto version 2.0.20 running

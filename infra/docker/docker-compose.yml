@@ -1,52 +1,38 @@
-    services:
-          plantix:
-              build:
-                context: ../../application/plantix
-                dockerfile: Dockerfile
-              container_name: plantix-application
-              environment:
-                DB_USERNAME: "${APP_DB_USERNAME}"
-                DB_PASSWORD: "${APP_DB_PASSWORD}"
-                DB_URL: "jdbc:mysql://db:3306/${APP_DB_NAME}"
-                PORT: "${APP_PORT}"
-                EMAIL: "${APP_EMAIL}"
-                APP_PASSWORD: "${APP_APP_PASSWORD}"
-              ports:
-                - "8080:8080"
-              restart: unless-stopped
-              networks:
-                - plantix_mosquitto
-                - plantix_back
-          plantix-db:
-              image: mysql:8.0
-              container_name: plantix-db
-              environment:
-                MYSQL_ROOT_PASSWORD: "${DB_MYSQL_ROOT_PASSWORD}"
-              restart: unless-stopped
-              volumes:
-                - plantix_db_data:/var/lib/mysql
-              ports:
-                - "3310:3306"
-              networks:
-                - plantix_back
+services:
+  plantix:
+    build:
+      context: ../../application/plantix
+      dockerfile: Dockerfile
+    container_name: plantix-application
+    environment:
+      MYSQL_DB_USERNAME: "${MYSQL_DB_USERNAME}"
+      MYSQL_DB_PASSWORD: "${MYSQL_DB_PASSWORD}"
+      MYSQL_DB_NAME: "${MYSQL_DB_NAME}"
+      PORT: "${APP_PORT}"
+      EMAIL: "${APP_EMAIL}"
+      APP_PASSWORD: "${APP_APP_PASSWORD}"
+    ports:
+      - "8080:8080"
+    restart: no
 
-          broker-mosquitto:
-              image: eclipse-mosquitto
-              ports:
-                - 1883:1883
-              volumes:
-                - ../../brokerMqtt/config:/mosquitto/config
-                - ../../brokerMqtt/data:/mosquitto/data
-                - ../../brokerMqtt/log:/mosquitto/log
-              networks:
-                - plantix_mosquitto
+  plantix-db:
+    image: mysql:8.0
+    container_name: plantix-db
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_MYSQL_ROOT_PASSWORD}"
+    restart: unless-stopped
     volumes:
-      plantix_db_data:
+      - plantix_db_data:/var/lib/mysql
+    ports:
+      - "3310:3306"
 
-    networks:
-      plantix_back:
-        name: plantix_back
-        driver: bridge
-      plantix_mosquitto:
-        name: plantix_mosquitto
-        driver: bridge
+  broker-mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - ../../brokerMQTT/config:/mosquitto/config
+      - ../../brokerMQTT/data:/mosquitto/data
+      - ../../brokerMQTT/log:/mosquitto/log
+volumes:
+  plantix_db_data:
