@@ -1,0 +1,50 @@
+services:
+  plantix:
+    build:
+      context: ../../application/plantix
+      dockerfile: Dockerfile
+    container_name: plantix-application
+    environment:
+      MYSQL_DB_USERNAME: "${MYSQL_DB_USERNAME}"
+      MYSQL_DB_PASSWORD: "${MYSQL_DB_PASSWORD}"
+      MYSQL_DB_NAME: "${MYSQL_DB_NAME}"
+      PORT: "${APP_PORT}"
+      EMAIL: "${APP_EMAIL}"
+      APP_PASSWORD: "${APP_APP_PASSWORD}"
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      plantix-db:
+        condition: service_healthy
+    
+
+  plantix-db:
+    image: mysql:8.0
+    container_name: plantix-db
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_MYSQL_ROOT_PASSWORD}"
+    restart: unless-stopped
+    volumes:
+      - plantix_db_data:/var/lib/mysql
+      - ../../application/plantixDB:/docker-entrypoint-initdb.d
+    ports:
+      - "3310:3306"
+    healthcheck:
+      test: CMD mysqladmin ping -h localhost -p${DB_MYSQL_ROOT_PASSWORD}
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+
+  broker-mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - ../../brokerMQTT/config:/mosquitto/config
+      - ../../brokerMQTT/data:/mosquitto/data
+      - ../../brokerMQTT/log:/mosquitto/log
+volumes:
+  plantix_db_data:
+  
