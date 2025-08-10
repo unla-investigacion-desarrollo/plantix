@@ -43,6 +43,11 @@
 			<artifactId>spring-integration-mqtt</artifactId>
 			<version>6.5.1</version>
 		</dependency>
+        <dependency>
+            <groupId>cn.devicelinks.framework</groupId>
+            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+            <version>1.2.6</version>
+        </dependency>
 
 		<dependency>
 			<groupId>com.mysql</groupId>
