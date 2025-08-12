@@ -385,3 +385,367 @@ To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
 1754622156: mosquitto version 2.0.20 running
 1754622176: mosquitto version 2.0.20 terminating
 1754622176: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754951894: mosquitto version 2.0.20 starting
+1754951894: Config loaded from /mosquitto/config/mosquitto.conf.
+1754951894: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754951894: Opening ipv4 listen socket on port 1883.
+1754951894: Opening ipv6 listen socket on port 1883.
+1754951894: mosquitto version 2.0.20 running
+1754951983: New connection from 172.20.0.1:45020 on port 1883.
+1754951983: New client connected from 172.20.0.1:45020 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754951983: No will message specified.
+1754951983: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754951983: Received SUBSCRIBE from mqttx_83e0c046
+1754951983: 	emqx/esp32 (QoS 0)
+1754951983: mqttx_83e0c046 0 emqx/esp32
+1754951983: Sending SUBACK to mqttx_83e0c046
+1754951983: Received SUBSCRIBE from mqttx_83e0c046
+1754951983: 	clima/esp32 (QoS 0)
+1754951983: mqttx_83e0c046 0 clima/esp32
+1754951983: Sending SUBACK to mqttx_83e0c046
+1754952043: Received PINGREQ from mqttx_83e0c046
+1754952043: Sending PINGRESP to mqttx_83e0c046
+1754952103: Received PINGREQ from mqttx_83e0c046
+1754952103: Sending PINGRESP to mqttx_83e0c046
+1754952163: Received PINGREQ from mqttx_83e0c046
+1754952163: Sending PINGRESP to mqttx_83e0c046
+1754952223: Received PINGREQ from mqttx_83e0c046
+1754952223: Sending PINGRESP to mqttx_83e0c046
+1754952283: Received PINGREQ from mqttx_83e0c046
+1754952283: Sending PINGRESP to mqttx_83e0c046
+1754952343: Received PINGREQ from mqttx_83e0c046
+1754952343: Sending PINGRESP to mqttx_83e0c046
+1754952403: Received PINGREQ from mqttx_83e0c046
+1754952403: Sending PINGRESP to mqttx_83e0c046
+1754952463: Received PINGREQ from mqttx_83e0c046
+1754952463: Sending PINGRESP to mqttx_83e0c046
+1754952523: Received PINGREQ from mqttx_83e0c046
+1754952523: Sending PINGRESP to mqttx_83e0c046
+1754952583: Received PINGREQ from mqttx_83e0c046
+1754952583: Sending PINGRESP to mqttx_83e0c046
+1754952643: Received PINGREQ from mqttx_83e0c046
+1754952643: Sending PINGRESP to mqttx_83e0c046
+1754952703: Received PINGREQ from mqttx_83e0c046
+1754952703: Sending PINGRESP to mqttx_83e0c046
+1754952763: Received PINGREQ from mqttx_83e0c046
+1754952763: Sending PINGRESP to mqttx_83e0c046
+1754952823: Received PINGREQ from mqttx_83e0c046
+1754952823: Sending PINGRESP to mqttx_83e0c046
+1754952883: Received PINGREQ from mqttx_83e0c046
+1754952883: Sending PINGRESP to mqttx_83e0c046
+1754952943: Received PINGREQ from mqttx_83e0c046
+1754952943: Sending PINGRESP to mqttx_83e0c046
+1754953003: Received PINGREQ from mqttx_83e0c046
+1754953003: Sending PINGRESP to mqttx_83e0c046
+1754953063: Received PINGREQ from mqttx_83e0c046
+1754953063: Sending PINGRESP to mqttx_83e0c046
+1754953123: Received PINGREQ from mqttx_83e0c046
+1754953123: Sending PINGRESP to mqttx_83e0c046
+1754953183: Received PINGREQ from mqttx_83e0c046
+1754953183: Sending PINGRESP to mqttx_83e0c046
+1754953243: Received PINGREQ from mqttx_83e0c046
+1754953243: Sending PINGRESP to mqttx_83e0c046
+1754953303: Received PINGREQ from mqttx_83e0c046
+1754953303: Sending PINGRESP to mqttx_83e0c046
+1754953363: Received PINGREQ from mqttx_83e0c046
+1754953363: Sending PINGRESP to mqttx_83e0c046
+1754953423: Received PINGREQ from mqttx_83e0c046
+1754953423: Sending PINGRESP to mqttx_83e0c046
+1754953483: Received PINGREQ from mqttx_83e0c046
+1754953483: Sending PINGRESP to mqttx_83e0c046
+1754953543: Received PINGREQ from mqttx_83e0c046
+1754953543: Sending PINGRESP to mqttx_83e0c046
+1754953603: Received PINGREQ from mqttx_83e0c046
+1754953603: Sending PINGRESP to mqttx_83e0c046
+1754953664: Received PINGREQ from mqttx_83e0c046
+1754953664: Sending PINGRESP to mqttx_83e0c046
+1754953695: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754953760: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754953764: New connection from 172.20.0.1:42328 on port 1883.
+1754953764: New client connected from 172.20.0.1:42328 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754953764: No will message specified.
+1754953764: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754953764: Received SUBSCRIBE from mqttx_83e0c046
+1754953764: 	emqx/esp32 (QoS 0)
+1754953764: mqttx_83e0c046 0 emqx/esp32
+1754953764: 	clima/esp32 (QoS 0)
+1754953764: mqttx_83e0c046 0 clima/esp32
+1754953764: Sending SUBACK to mqttx_83e0c046
+1754953825: Received PINGREQ from mqttx_83e0c046
+1754953825: Sending PINGRESP to mqttx_83e0c046
+1754953886: Received PINGREQ from mqttx_83e0c046
+1754953886: Sending PINGRESP to mqttx_83e0c046
+1754953947: Received PINGREQ from mqttx_83e0c046
+1754953947: Sending PINGRESP to mqttx_83e0c046
+1754954008: Received PINGREQ from mqttx_83e0c046
+1754954008: Sending PINGRESP to mqttx_83e0c046
+1754954080: Received PINGREQ from mqttx_83e0c046
+1754954080: Sending PINGRESP to mqttx_83e0c046
+1754954174: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754954178: New connection from 172.20.0.1:38544 on port 1883.
+1754954178: New client connected from 172.20.0.1:38544 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754954178: No will message specified.
+1754954178: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754954178: Received SUBSCRIBE from mqttx_83e0c046
+1754954178: 	emqx/esp32 (QoS 0)
+1754954178: mqttx_83e0c046 0 emqx/esp32
+1754954178: 	clima/esp32 (QoS 0)
+1754954178: mqttx_83e0c046 0 clima/esp32
+1754954178: Sending SUBACK to mqttx_83e0c046
+1754954239: Received PINGREQ from mqttx_83e0c046
+1754954239: Sending PINGRESP to mqttx_83e0c046
+1754954300: Received PINGREQ from mqttx_83e0c046
+1754954300: Sending PINGRESP to mqttx_83e0c046
+1754954361: Received PINGREQ from mqttx_83e0c046
+1754954361: Sending PINGRESP to mqttx_83e0c046
+1754954422: Received PINGREQ from mqttx_83e0c046
+1754954422: Sending PINGRESP to mqttx_83e0c046
+1754954500: Received PINGREQ from mqttx_83e0c046
+1754954500: Sending PINGRESP to mqttx_83e0c046
+1754954560: Received PINGREQ from mqttx_83e0c046
+1754954560: Sending PINGRESP to mqttx_83e0c046
+1754954620: Received PINGREQ from mqttx_83e0c046
+1754954620: Sending PINGRESP to mqttx_83e0c046
+1754954714: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754954718: New connection from 172.20.0.1:55550 on port 1883.
+1754954718: New client connected from 172.20.0.1:55550 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754954718: No will message specified.
+1754954718: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754954718: Received SUBSCRIBE from mqttx_83e0c046
+1754954718: 	emqx/esp32 (QoS 0)
+1754954718: mqttx_83e0c046 0 emqx/esp32
+1754954718: 	clima/esp32 (QoS 0)
+1754954718: mqttx_83e0c046 0 clima/esp32
+1754954718: Sending SUBACK to mqttx_83e0c046
+1754954779: Received PINGREQ from mqttx_83e0c046
+1754954779: Sending PINGRESP to mqttx_83e0c046
+1754954840: Received PINGREQ from mqttx_83e0c046
+1754954840: Sending PINGRESP to mqttx_83e0c046
+1754954901: Received PINGREQ from mqttx_83e0c046
+1754954901: Sending PINGRESP to mqttx_83e0c046
+1754954962: Received PINGREQ from mqttx_83e0c046
+1754954962: Sending PINGRESP to mqttx_83e0c046
+1754955027: Received PINGREQ from mqttx_83e0c046
+1754955027: Sending PINGRESP to mqttx_83e0c046
+1754955100: Received PINGREQ from mqttx_83e0c046
+1754955100: Sending PINGRESP to mqttx_83e0c046
+1754955160: Received PINGREQ from mqttx_83e0c046
+1754955160: Sending PINGRESP to mqttx_83e0c046
+1754955254: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754955258: New connection from 172.20.0.1:47576 on port 1883.
+1754955258: New client connected from 172.20.0.1:47576 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754955258: No will message specified.
+1754955258: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754955258: Received SUBSCRIBE from mqttx_83e0c046
+1754955258: 	emqx/esp32 (QoS 0)
+1754955258: mqttx_83e0c046 0 emqx/esp32
+1754955258: 	clima/esp32 (QoS 0)
+1754955258: mqttx_83e0c046 0 clima/esp32
+1754955258: Sending SUBACK to mqttx_83e0c046
+1754955319: Received PINGREQ from mqttx_83e0c046
+1754955319: Sending PINGRESP to mqttx_83e0c046
+1754955380: Received PINGREQ from mqttx_83e0c046
+1754955380: Sending PINGRESP to mqttx_83e0c046
+1754955441: Received PINGREQ from mqttx_83e0c046
+1754955441: Sending PINGRESP to mqttx_83e0c046
+1754955496: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754955502: Received PINGREQ from mqttx_83e0c046
+1754955502: Sending PINGRESP to mqttx_83e0c046
+1754955570: Received PINGREQ from mqttx_83e0c046
+1754955570: Sending PINGRESP to mqttx_83e0c046
+1754955630: Received PINGREQ from mqttx_83e0c046
+1754955630: Sending PINGRESP to mqttx_83e0c046
+1754955700: Received PINGREQ from mqttx_83e0c046
+1754955700: Sending PINGRESP to mqttx_83e0c046
+1754955794: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754955798: New connection from 172.20.0.1:55102 on port 1883.
+1754955798: New client connected from 172.20.0.1:55102 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754955798: No will message specified.
+1754955798: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754955798: Received SUBSCRIBE from mqttx_83e0c046
+1754955798: 	emqx/esp32 (QoS 0)
+1754955798: mqttx_83e0c046 0 emqx/esp32
+1754955798: 	clima/esp32 (QoS 0)
+1754955798: mqttx_83e0c046 0 clima/esp32
+1754955798: Sending SUBACK to mqttx_83e0c046
+1754955859: Received PINGREQ from mqttx_83e0c046
+1754955859: Sending PINGRESP to mqttx_83e0c046
+1754955920: Received PINGREQ from mqttx_83e0c046
+1754955920: Sending PINGRESP to mqttx_83e0c046
+1754955981: Received PINGREQ from mqttx_83e0c046
+1754955981: Sending PINGRESP to mqttx_83e0c046
+1754956042: Received PINGREQ from mqttx_83e0c046
+1754956042: Sending PINGRESP to mqttx_83e0c046
+1754956120: Received PINGREQ from mqttx_83e0c046
+1754956120: Sending PINGRESP to mqttx_83e0c046
+1754956214: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754956218: New connection from 172.20.0.1:54910 on port 1883.
+1754956218: New client connected from 172.20.0.1:54910 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754956218: No will message specified.
+1754956218: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754956218: Received SUBSCRIBE from mqttx_83e0c046
+1754956218: 	emqx/esp32 (QoS 0)
+1754956218: mqttx_83e0c046 0 emqx/esp32
+1754956218: 	clima/esp32 (QoS 0)
+1754956218: mqttx_83e0c046 0 clima/esp32
+1754956218: Sending SUBACK to mqttx_83e0c046
+1754956279: Received PINGREQ from mqttx_83e0c046
+1754956279: Sending PINGRESP to mqttx_83e0c046
+1754956340: Received PINGREQ from mqttx_83e0c046
+1754956340: Sending PINGRESP to mqttx_83e0c046
+1754956401: Received PINGREQ from mqttx_83e0c046
+1754956401: Sending PINGRESP to mqttx_83e0c046
+1754956462: Received PINGREQ from mqttx_83e0c046
+1754956462: Sending PINGRESP to mqttx_83e0c046
+1754956540: Received PINGREQ from mqttx_83e0c046
+1754956540: Sending PINGRESP to mqttx_83e0c046
+1754956600: Received PINGREQ from mqttx_83e0c046
+1754956600: Sending PINGRESP to mqttx_83e0c046
+1754956660: Received PINGREQ from mqttx_83e0c046
+1754956660: Sending PINGRESP to mqttx_83e0c046
+1754956754: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754956758: New connection from 172.20.0.1:53516 on port 1883.
+1754956758: New client connected from 172.20.0.1:53516 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754956758: No will message specified.
+1754956758: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754956758: Received SUBSCRIBE from mqttx_83e0c046
+1754956758: 	emqx/esp32 (QoS 0)
+1754956758: mqttx_83e0c046 0 emqx/esp32
+1754956758: 	clima/esp32 (QoS 0)
+1754956758: mqttx_83e0c046 0 clima/esp32
+1754956758: Sending SUBACK to mqttx_83e0c046
+1754956819: Received PINGREQ from mqttx_83e0c046
+1754956819: Sending PINGRESP to mqttx_83e0c046
+1754956880: Received PINGREQ from mqttx_83e0c046
+1754956880: Sending PINGRESP to mqttx_83e0c046
+1754956941: Received PINGREQ from mqttx_83e0c046
+1754956941: Sending PINGRESP to mqttx_83e0c046
+1754957002: Received PINGREQ from mqttx_83e0c046
+1754957002: Sending PINGRESP to mqttx_83e0c046
+1754957080: Received PINGREQ from mqttx_83e0c046
+1754957080: Sending PINGRESP to mqttx_83e0c046
+1754957174: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754957178: New connection from 172.20.0.1:47152 on port 1883.
+1754957178: New client connected from 172.20.0.1:47152 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754957178: No will message specified.
+1754957178: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754957178: Received SUBSCRIBE from mqttx_83e0c046
+1754957178: 	emqx/esp32 (QoS 0)
+1754957178: mqttx_83e0c046 0 emqx/esp32
+1754957178: 	clima/esp32 (QoS 0)
+1754957178: mqttx_83e0c046 0 clima/esp32
+1754957178: Sending SUBACK to mqttx_83e0c046
+1754957239: Received PINGREQ from mqttx_83e0c046
+1754957239: Sending PINGRESP to mqttx_83e0c046
+1754957297: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754957300: Received PINGREQ from mqttx_83e0c046
+1754957300: Sending PINGRESP to mqttx_83e0c046
+1754957361: Received PINGREQ from mqttx_83e0c046
+1754957361: Sending PINGRESP to mqttx_83e0c046
+1754957422: Received PINGREQ from mqttx_83e0c046
+1754957422: Sending PINGRESP to mqttx_83e0c046
+1754957500: Received PINGREQ from mqttx_83e0c046
+1754957500: Sending PINGRESP to mqttx_83e0c046
+1754957560: Received PINGREQ from mqttx_83e0c046
+1754957560: Sending PINGRESP to mqttx_83e0c046
+1754957620: Received PINGREQ from mqttx_83e0c046
+1754957620: Sending PINGRESP to mqttx_83e0c046
+1754957714: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754957718: New connection from 172.20.0.1:54842 on port 1883.
+1754957718: New client connected from 172.20.0.1:54842 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754957718: No will message specified.
+1754957718: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754957718: Received SUBSCRIBE from mqttx_83e0c046
+1754957718: 	emqx/esp32 (QoS 0)
+1754957718: mqttx_83e0c046 0 emqx/esp32
+1754957718: 	clima/esp32 (QoS 0)
+1754957718: mqttx_83e0c046 0 clima/esp32
+1754957718: Sending SUBACK to mqttx_83e0c046
+1754957779: Received PINGREQ from mqttx_83e0c046
+1754957779: Sending PINGRESP to mqttx_83e0c046
+1754957840: Received PINGREQ from mqttx_83e0c046
+1754957840: Sending PINGRESP to mqttx_83e0c046
+1754957901: Received PINGREQ from mqttx_83e0c046
+1754957901: Sending PINGRESP to mqttx_83e0c046
+1754957962: Received PINGREQ from mqttx_83e0c046
+1754957962: Sending PINGRESP to mqttx_83e0c046
+1754958040: Received PINGREQ from mqttx_83e0c046
+1754958040: Sending PINGRESP to mqttx_83e0c046
+1754958100: Received PINGREQ from mqttx_83e0c046
+1754958100: Sending PINGRESP to mqttx_83e0c046
+1754958194: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754958198: New connection from 172.20.0.1:57230 on port 1883.
+1754958198: New client connected from 172.20.0.1:57230 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754958198: No will message specified.
+1754958198: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754958198: Received SUBSCRIBE from mqttx_83e0c046
+1754958198: 	emqx/esp32 (QoS 0)
+1754958198: mqttx_83e0c046 0 emqx/esp32
+1754958198: 	clima/esp32 (QoS 0)
+1754958198: mqttx_83e0c046 0 clima/esp32
+1754958198: Sending SUBACK to mqttx_83e0c046
+1754958259: Received PINGREQ from mqttx_83e0c046
+1754958259: Sending PINGRESP to mqttx_83e0c046
+1754958320: Received PINGREQ from mqttx_83e0c046
+1754958320: Sending PINGRESP to mqttx_83e0c046
+1754958381: Received PINGREQ from mqttx_83e0c046
+1754958381: Sending PINGRESP to mqttx_83e0c046
+1754958442: Received PINGREQ from mqttx_83e0c046
+1754958442: Sending PINGRESP to mqttx_83e0c046
+1754958520: Received PINGREQ from mqttx_83e0c046
+1754958520: Sending PINGRESP to mqttx_83e0c046
+1754958614: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754958618: New connection from 172.20.0.1:42578 on port 1883.
+1754958618: New client connected from 172.20.0.1:42578 as mqttx_83e0c046 (p1, c1, k60, u'plantix').
+1754958618: No will message specified.
+1754958618: Sending CONNACK to mqttx_83e0c046 (0, 0)
+1754958710: Client mqttx_83e0c046 has exceeded timeout, disconnecting.
+1754959098: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754960899: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754962700: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754964139: mosquitto version 2.0.20 terminating
+1754964139: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754969837: mosquitto version 2.0.20 starting
+1754969837: Config loaded from /mosquitto/config/mosquitto.conf.
+1754969837: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754969837: Opening ipv4 listen socket on port 1883.
+1754969837: Opening ipv6 listen socket on port 1883.
+1754969837: mosquitto version 2.0.20 running
+1754969993: mosquitto version 2.0.20 terminating
+1754969993: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1754970052: mosquitto version 2.0.20 starting
+1754970052: Config loaded from /mosquitto/config/mosquitto.conf.
+1754970052: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1754970052: Opening ipv4 listen socket on port 1883.
+1754970052: Opening ipv6 listen socket on port 1883.
+1754970052: mosquitto version 2.0.20 running
+1754971017: mosquitto version 2.0.20 terminating
+1754971017: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755024653: mosquitto version 2.0.20 starting
+1755024653: Config loaded from /mosquitto/config/mosquitto.conf.
+1755024653: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1755024653: Opening ipv4 listen socket on port 1883.
+1755024653: Opening ipv6 listen socket on port 1883.
+1755024653: mosquitto version 2.0.20 running
+1755025054: mosquitto version 2.0.20 terminating
+1755025054: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755025061: mosquitto version 2.0.20 starting
+1755025061: Config loaded from /mosquitto/config/mosquitto.conf.
+1755025061: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1755025061: Opening ipv4 listen socket on port 1883.
+1755025061: Opening ipv6 listen socket on port 1883.
+1755025061: mosquitto version 2.0.20 running
+1755025170: mosquitto version 2.0.20 terminating
+1755025170: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1755025192: mosquitto version 2.0.20 starting
+1755025192: Config loaded from /mosquitto/config/mosquitto.conf.
+1755025192: Warning: File /mosquitto/config/mosquitto.passwd has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/config/mosquitto.passwd`.
+1755025192: Opening ipv4 listen socket on port 1883.
+1755025192: Opening ipv6 listen socket on port 1883.
+1755025192: mosquitto version 2.0.20 running
