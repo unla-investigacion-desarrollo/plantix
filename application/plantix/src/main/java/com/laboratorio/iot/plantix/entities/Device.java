@@ -1,16 +1,14 @@
 package com.laboratorio.iot.plantix.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "devices")
+@Table(name = "device")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,10 +18,13 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String type;
 
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
     private List<DeviceHistory> histories;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "field_id", nullable = false)
     private Field field;
 }
