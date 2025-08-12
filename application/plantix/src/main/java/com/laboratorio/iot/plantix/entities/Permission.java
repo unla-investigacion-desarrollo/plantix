@@ -17,7 +17,7 @@ public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String permissionName;
+    private String permission;
 
     @ManyToMany(mappedBy = "permissions")
     private List<Role> roles;
