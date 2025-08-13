@@ -1,7 +1,7 @@
 package com.laboratorio.iot.plantix.constants.mqtt;
 
 public class MQTTBrokerInformation {
-    public static String URL = "tcp://docker-broker-mosquitto-1:1883";
+    public static String URL = System.getenv("MQTT_URL") != null ? System.getenv("MQTT_URL") : "tcp://docker-broker-mosquitto-1:1883";
     public static String USERNAME = System.getenv("MQTT_USERNAME");
     public static String PASSWORD = System.getenv("MQTT_PASSWORD");
     public static String DHT11_TEMP_TOPIC = "DHT11-temp-topic";
