@@ -1,8 +1,6 @@
 package com.laboratorio.iot.plantix.configuration.mqtt.dht11.in;
 
-import com.laboratorio.iot.plantix.configuration.mqtt.MQTTPayloadMapper;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTInputChannelInformation;
-import lombok.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
