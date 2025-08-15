@@ -52,6 +52,6 @@ public class Field {
     private double lightMax;
 
     @Lob
-    @Column(name = "notes", columnDefinition = "LONGTEXT")
+    @Column(name = "notes")
     private String notes;
 }
