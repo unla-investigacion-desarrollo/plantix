@@ -4,6 +4,8 @@ services:
       context: ../../application/plantix
       dockerfile: Dockerfile
     container_name: plantix-application
+    volumes:
+      - ../../application/plantix:/app
     environment:
       MYSQL_DB_USERNAME: "${MYSQL_DB_USERNAME}"
       MYSQL_DB_PASSWORD: "${MYSQL_DB_PASSWORD}"
@@ -13,6 +15,8 @@ services:
       APP_PASSWORD: "${APP_APP_PASSWORD}"
       MQTT_USERNAME: "${MQTT_USERNAME}"
       MQTT_PASSWORD: "${MQTT_PASSWORD}"
+      SPRING_DEVTOOLS_RESTART_ENABLED: "true"
+      SPRING_DEVTOOLS_LIVERELOAD_ENABLED: "true"
     ports:
       - "8080:8080"
     restart: unless-stopped
@@ -33,10 +37,13 @@ services:
     ports:
       - "3307:3306"
     healthcheck:
-      test: CMD mysqladmin ping -h localhost -p${DB_MYSQL_ROOT_PASSWORD}
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_MYSQL_ROOT_PASSWORD}"]
       interval: 5s
       timeout: 3s
       retries: 5
+      start_period: 20s
+
+
 
 
   broker-mosquitto:
