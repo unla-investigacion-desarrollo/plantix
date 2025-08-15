@@ -5,10 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.List;
 
 @Entity
-@Table(name = "device")
+@Table(name = "devices")
 @Getter
 @Setter
 @AllArgsConstructor
