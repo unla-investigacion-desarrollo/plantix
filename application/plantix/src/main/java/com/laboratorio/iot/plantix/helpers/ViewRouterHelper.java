@@ -1,4 +1,8 @@
 package com.laboratorio.iot.plantix.helpers;
 
-public class ViewRouterHelper {
+public final class ViewRouterHelper {
+    /**** Views ****/
+    //HOME
+    public static final String INDEX = "home/index";
+
 }
