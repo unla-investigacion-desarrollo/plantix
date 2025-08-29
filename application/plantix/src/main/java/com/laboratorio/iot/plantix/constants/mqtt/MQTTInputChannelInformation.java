@@ -11,14 +11,15 @@ public class MQTTInputChannelInformation {
     // Sensor data channels
     public static final String SENSOR_DATA_CHANNEL = "sensorDataInputChannel";
     public static final String DHT11_CHANNEL = "dht11InputChannel";
-    
+    public static final String SENSOR_SUBSTRATE_MOISTURE_CHANNEL = "sensorSubstrateMoistureInputChannel";
+
     // Electrovalve control channels
     public static final String ELECTROVALVE_OPEN_CHANNEL = "electrovalveOpenInputChannel";
     public static final String ELECTROVALVE_CLOSE_CHANNEL = "electrovalveCloseInputChannel";
     
     // Error handling channel
     public static final String ERROR_CHANNEL = "errorInputChannel";
-    
+
     // Private constructor to prevent instantiation
     private MQTTInputChannelInformation() {
         throw new IllegalStateException("Utility class");
