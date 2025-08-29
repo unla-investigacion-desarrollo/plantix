@@ -2,6 +2,7 @@ package com.laboratorio.iot.plantix.configuration.mqtt;
 
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTBrokerInformation;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTInputChannelInformation;
+import com.laboratorio.iot.plantix.constants.mqtt.MQTTOutputChannelInformation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -13,7 +14,9 @@ import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
 import org.springframework.integration.router.HeaderValueRouter;
 import org.springframework.messaging.MessageChannel;
 
-
+/**
+ * Configuration for MQTT inbound (subscribing) messages.
+ */
 @Configuration
 public class MQTTInboundConfiguration {
     private static final int COMPLETION_TIMEOUT = 5000;
@@ -39,11 +42,12 @@ public class MQTTInboundConfiguration {
                         MQTTBrokerInformation.URL,
                         "receiverClient",
                         mqttPahoClientFactory,
-                        MQTTBrokerInformation.DHT11_TEMP_TOPIC,
-                        MQTTBrokerInformation.DHT11_HUMIDITY_TOPIC,
+                        MQTTBrokerInformation.DHT11_TOPIC,
                         MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC,
                         MQTTBrokerInformation.ELECTROVALVE_OPEN_TOPIC,
-                        MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC);
+                        MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC,
+                        MQTTBrokerInformation.ERRORS_TOPIC);
+        
         adapter.setCompletionTimeout(COMPLETION_TIMEOUT);
         adapter.setConverter(converter);
         adapter.setQos(DELIVER_ONLY_ONCE_AND_CONFIRM);
@@ -55,11 +59,32 @@ public class MQTTInboundConfiguration {
     @ServiceActivator(inputChannel = MQTTInputChannelInformation.COMMON_CHANNEL)
     public HeaderValueRouter mqttTopicRouter() {
         HeaderValueRouter router = new HeaderValueRouter("mqtt_receivedTopic");
-        router.setChannelMapping(MQTTBrokerInformation.DHT11_TEMP_TOPIC, MQTTInputChannelInformation.DHT11_TEMP_CHANNEL);
-        router.setChannelMapping(MQTTBrokerInformation.DHT11_HUMIDITY_TOPIC, MQTTInputChannelInformation.DHT11_HUMIDITY_CHANNEL);
-        router.setChannelMapping(MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC, MQTTInputChannelInformation.SENSOR_SUBSTRATE_MOISTURE_CHANNEL);
-        router.setChannelMapping(MQTTBrokerInformation.ELECTROVALVE_OPEN_TOPIC, MQTTInputChannelInformation.ELECTROVALVE_OPEN_CHANNEL);
-        router.setChannelMapping(MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC, MQTTInputChannelInformation.ELECTROVALVE_CLOSE_CHANNEL);
+        
+        // Route DHT11 data
+        router.setChannelMapping(
+                MQTTBrokerInformation.DHT11_TOPIC,
+                MQTTOutputChannelInformation.DHT11_TEMP_CHANNEL);
+                
+        // Route substrate moisture sensor data
+        router.setChannelMapping(
+                MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC,
+                MQTTOutputChannelInformation.SENSOR_SUBSTRATE_MOISTURE_CHANNEL);
+                
+        // Route electrovalve open commands
+        router.setChannelMapping(
+                MQTTBrokerInformation.ELECTROVALVE_OPEN_TOPIC,
+                MQTTInputChannelInformation.ELECTROVALVE_OPEN_CHANNEL);
+                
+        // Route electrovalve close confirmations
+        router.setChannelMapping(
+                MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC,
+                MQTTInputChannelInformation.ELECTROVALVE_CLOSE_CHANNEL);
+        
+     // Route error confirmation
+        router.setChannelMapping(
+                MQTTBrokerInformation.ERRORS_TOPIC,
+                MQTTInputChannelInformation.ERROR_CHANNEL);
+                
         return router;
     }
 }
