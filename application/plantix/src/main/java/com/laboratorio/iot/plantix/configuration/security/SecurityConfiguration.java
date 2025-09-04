@@ -47,30 +47,31 @@ public class SecurityConfiguration {
                     por ej, si queremos que solo usuarios autenticados pueden pegarle a los endpoints que arranquen con /field/:
                     httpRequest.requestMatchers("/field/**").authenticated();
                      */
+                    httpRequest.anyRequest().permitAll(); //temporal, para que spring security no nos moleste
                 })
-                .formLogin(login -> {
-                    /*
-                    aca simplemente hay que indicarle a spring security las rutas que vamos a usar
-                    para manejar el login de los usuarios
-                    dejo comentado codigo de ejemplo de Ticketo, un sistema hecho por Emi
-                    cuando tengamos las rutas del login por parte de los controllers, podemos
-                    descomentar este codigo y reemplazar las rutas por las de plantix
-                     */
-                    //login.loginPage("/auth/login");
-                    //login.loginProcessingUrl("/auth/loginProcess");//POST
-                    //login.usernameParameter("username");
-                    //login.passwordParameter("password");
-                    //login.defaultSuccessUrl("/auth/loginSuccess", true);
-                    //login.permitAll();
-                })
-                .logout(logout -> {
-                    /*
-                    misma idea que con el metodo anterior a este, pero para procesar el logout
-                     */
-                    //logout.logoutUrl("/auth/logout");//POST
-                    //logout.logoutSuccessUrl("/auth/login?logout=true");
-                    //logout.permitAll();
-                })
+//                .formLogin(login -> {
+//                    /*
+//                    aca simplemente hay que indicarle a spring security las rutas que vamos a usar
+//                    para manejar el login de los usuarios
+//                    dejo comentado codigo de ejemplo de Ticketo, un sistema hecho por Emi
+//                    cuando tengamos las rutas del login por parte de los controllers, podemos
+//                    descomentar este codigo y reemplazar las rutas por las de plantix
+//                     */
+//                    //login.loginPage("/auth/login");
+//                    //login.loginProcessingUrl("/auth/loginProcess");//POST
+//                    //login.usernameParameter("username");
+//                    //login.passwordParameter("password");
+//                    //login.defaultSuccessUrl("/auth/loginSuccess", true);
+//                    //login.permitAll();
+//                })
+//                .logout(logout -> {
+//                    /*
+//                    misma idea que con el metodo anterior a este, pero para procesar el logout
+//                     */
+//                    //logout.logoutUrl("/auth/logout");//POST
+//                    //logout.logoutSuccessUrl("/auth/login?logout=true");
+//                    //logout.permitAll();
+//                })
                 .build();
     }
 
