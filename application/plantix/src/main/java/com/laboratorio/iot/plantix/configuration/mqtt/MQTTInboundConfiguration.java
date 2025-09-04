@@ -63,12 +63,12 @@ public class MQTTInboundConfiguration {
         // Route DHT11 data
         router.setChannelMapping(
                 MQTTBrokerInformation.DHT11_TOPIC,
-                MQTTOutputChannelInformation.DHT11_TEMP_CHANNEL);
+                MQTTInputChannelInformation.DHT11_CHANNEL);
                 
         // Route substrate moisture sensor data
         router.setChannelMapping(
                 MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC,
-                MQTTOutputChannelInformation.SENSOR_SUBSTRATE_MOISTURE_CHANNEL);
+                MQTTInputChannelInformation.SENSOR_SUBSTRATE_MOISTURE_CHANNEL);
                 
         // Route electrovalve open commands
         router.setChannelMapping(
