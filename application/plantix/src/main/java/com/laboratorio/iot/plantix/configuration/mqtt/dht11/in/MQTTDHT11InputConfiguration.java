@@ -11,22 +11,12 @@ import org.springframework.messaging.MessageChannel;
 @Configuration
 public class MQTTDHT11InputConfiguration {
     @Bean
-    public MessageChannel dht11TempInputChannel() {
+    public MessageChannel dht11InputChannel() {
         return new DirectChannel();
     }
 
-    @Bean
-    public MessageChannel dht11HumidityInputChannel() {
-        return new DirectChannel();
-    }
-
-    @ServiceActivator(inputChannel = MQTTInputChannelInformation.DHT11_TEMP_CHANNEL)
+    @ServiceActivator(inputChannel = MQTTInputChannelInformation.DHT11_CHANNEL)
     public void dht11TempHandleMessage(Message<?> message) {
-        System.out.println("["+MQTTInputChannelInformation.DHT11_TEMP_CHANNEL+"] Recibí este mensaje: "+message.getPayload());
-    }
-
-    @ServiceActivator(inputChannel = MQTTInputChannelInformation.DHT11_HUMIDITY_CHANNEL)
-    public void dht11HumidityHandleMessage(Message<?> message) {
-        System.out.println("["+MQTTInputChannelInformation.DHT11_HUMIDITY_CHANNEL+"] Recibí este mensaje: "+message.getPayload());
+        System.out.println("["+MQTTInputChannelInformation.DHT11_CHANNEL+"] Recibí este mensaje: "+message.getPayload());
     }
 }

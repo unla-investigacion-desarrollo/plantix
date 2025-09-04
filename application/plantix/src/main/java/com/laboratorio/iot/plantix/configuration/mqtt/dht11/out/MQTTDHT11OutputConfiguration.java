@@ -22,30 +22,17 @@ public class MQTTDHT11OutputConfiguration {
     }
 
     @Bean
-    public MessageChannel dht11TempOutputChannel() {
+    public MessageChannel dht11OutputChannel() {
         return new DirectChannel();
     }
 
-    @Bean
-    public MessageChannel dht11HumidityOutputChannel() {
-        return new DirectChannel();
-    }
 
     @Bean
-    @ServiceActivator(inputChannel = MQTTOutputChannelInformation.DHT11_TEMP_CHANNEL)
+    @ServiceActivator(inputChannel = MQTTOutputChannelInformation.DHT11_CHANNEL)
     public MessageHandler dht11TempOutbound() {
         return MQTTOutboundConfiguration.constructMessageHandler(
                 mqttPahoClientFactory,
-                MQTTBrokerInformation.DHT11_TEMP_TOPIC
-        );
-    }
-
-    @Bean
-    @ServiceActivator(inputChannel = MQTTOutputChannelInformation.DHT11_HUMIDITY_CHANNEL)
-    public MessageHandler dht11HumidityOutbound() {
-        return MQTTOutboundConfiguration.constructMessageHandler(
-                mqttPahoClientFactory,
-                MQTTBrokerInformation.DHT11_HUMIDITY_TOPIC
+                MQTTBrokerInformation.DHT11_TOPIC
         );
     }
 }
