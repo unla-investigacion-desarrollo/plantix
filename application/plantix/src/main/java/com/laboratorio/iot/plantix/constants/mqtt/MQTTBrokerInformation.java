@@ -12,17 +12,18 @@ public class MQTTBrokerInformation {
     public static final String PASSWORD = System.getenv("MQTT_PASSWORD");
 
     // Base topic paths
-    private static final String FIELD_TOPIC =  "field"; // + is wildcard for field ID
+    private static final String BASE_TOPIC = "plantix";
+    private static final String FIELD_TOPIC = BASE_TOPIC + "/field";
+    private static final String SENSOR_TOPIC = "/sensor";
+    private static final String ELECTROVALVE_TOPIC = "/electrovalve";
 
     // Incoming topics (subscriptions)
-    public static final String DHT11_TOPIC = "DHT11-topic";
-    public static final String ELECTROVALVE_CLOSE_TOPIC = "electrovalve-close-topic";
-    public static final String ERRORS_TOPIC =  "errors-topic";
-
-    // Outgoing topics (publications)
-    public static final String REQUEST_SENSOR_DATA_TOPIC = "request-sensor-data-topic";
-    public static final String ELECTROVALVE_OPEN_TOPIC = "electrovalve-open-topic";
-    public static final String SENSOR_SUBSTRATE_MOISTURE_TOPIC = "sensor-substrate-moisture-topic";
+    public static final String REQUEST_SENSOR_DATA_TOPIC = BASE_TOPIC + "/request/sensor/data";
+    public static final String DHT11_TOPIC = FIELD_TOPIC + "/+/sensor/dht11";
+    public static final String SUBSTRATE_MOISTURE_TOPIC = FIELD_TOPIC + "/+/sensor/substrate_moisture";
+    public static final String ELECTROVALVE_OPEN_TOPIC = FIELD_TOPIC + "/+/electrovalve/open";
+    public static final String ELECTROVALVE_CLOSE_TOPIC = FIELD_TOPIC + "/+/electrovalve/close";
+    public static final String ERRORS_TOPIC = BASE_TOPIC + "/errors";
 
     // QoS levels
     public static final int QOS_AT_MOST_ONCE = 0;
