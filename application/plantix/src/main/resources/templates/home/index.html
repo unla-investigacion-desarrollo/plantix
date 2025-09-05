@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/head :: head('Home')}">
+    <title></title>
+</head>
+<body id="page-top">
+<div id="wrapper">
+    <ul th:replace="~{fragments/sidebar :: sidebar}"></ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <nav th:replace="~{fragments/topbar :: topbar}"></nav>
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Home</h1>
+                </div>
+                <!-- Section Content -->
+                <!--<div class="row"></div>-->
+            </div>
+        </div>
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+    </div>
+</div>
+<a th:replace="~{fragments/utils :: scrollToTop}"></a>
+<div th:replace="~{fragments/utils :: logoutModal}"></div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

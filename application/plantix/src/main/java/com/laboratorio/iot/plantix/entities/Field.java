@@ -35,21 +35,25 @@ public class Field {
     @OneToMany(mappedBy = "field", fetch = FetchType.LAZY)
     private List<Sensor> sensors;
 
-    private double phValue;
-    private double phValueMin;
-    private double phValueMax;
+    private Double phValue;
+    private Double phValueMin;
+    private Double phValueMax;
 
-    private double substrateHumidity;
-    private double substrateHumidityMin;
-    private double substrateHumidityMax;
+    private Double substrateHumidity;
+    private Double substrateHumidityMin;
+    private Double substrateHumidityMax;
 
-    private double temperature;
-    private double temperatureMin;
-    private double temperatureMax;
+    private Double temperature;
+    private Double temperatureMin;
+    private Double temperatureMax;
 
-    private double light;
-    private double lightMin;
-    private double lightMax;
+    private Double humidity;
+    private Double humidityMin;
+    private Double humidityMax;
+
+    private Double light;
+    private Double lightMin;
+    private Double lightMax;
 
     @Lob
     @Column(name = "notes")

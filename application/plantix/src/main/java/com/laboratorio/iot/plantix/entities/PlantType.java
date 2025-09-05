@@ -20,10 +20,10 @@ public class PlantType {
     private Long id;
 
     private String name;
-    private double phValue;
-    private double substrateHumidity;
-    private double temperature;
-    private double light;
+    private Double phValue;
+    private Double substrateHumidity;
+    private Double temperature;
+    private Double light;
 
     @ManyToMany(mappedBy = "plantTypes")
     private List<Field> fields;
