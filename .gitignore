@@ -1,6 +1,8 @@
-/infra/docker/.env
-/brokerMQTT/data/mosquitto.db
-/brokerMQTT/log/mosquitto.log
+infra/docker/.env
+brokerMQTT/data/mosquitto.db
+brokerMQTT/log/mosquitto.log
 
 # Ignorar archivos y carpetas de IntelliJ IDEA
 .idea/
+# Ignorar archivos y carpetas de vscode
+.vscode
