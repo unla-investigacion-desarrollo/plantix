@@ -4,7 +4,6 @@ import com.laboratorio.iot.plantix.dtos.FieldDTO;
 import com.laboratorio.iot.plantix.entities.Field;
 import com.laboratorio.iot.plantix.repositories.IFieldRepository;
 import com.laboratorio.iot.plantix.services.IFieldService;
-import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

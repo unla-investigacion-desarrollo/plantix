@@ -2,7 +2,6 @@ package com.laboratorio.iot.plantix.services.implementation;
 
 import com.laboratorio.iot.plantix.dtos.SensorDTO;
 import com.laboratorio.iot.plantix.entities.Sensor;
-import com.laboratorio.iot.plantix.repositories.ISensorHistoryRepository;
 import com.laboratorio.iot.plantix.repositories.ISensorRepository;
 import com.laboratorio.iot.plantix.services.ISensorHistoryService;
 import com.laboratorio.iot.plantix.services.ISensorService;

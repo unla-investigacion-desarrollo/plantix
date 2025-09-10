@@ -2,7 +2,6 @@ package com.laboratorio.iot.plantix.configuration.mqtt;
 
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTBrokerInformation;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTInputChannelInformation;
-import com.laboratorio.iot.plantix.constants.mqtt.MQTTOutputChannelInformation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
