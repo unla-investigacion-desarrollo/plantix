@@ -33,7 +33,7 @@ public class SensorService implements ISensorService {
                                 sensorHistoryService.getLastSensorHistoryBySensorId(sensor.getId()).getData()
                         );
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Failed to map Sensor to SensorDTO: " + e.getMessage(), e);
                     }
                 }).toList();
     }
