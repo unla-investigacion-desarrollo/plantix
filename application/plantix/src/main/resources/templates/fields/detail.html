@@ -81,7 +81,7 @@
                                                             <tr th:each="history : ${sensorHistories}" th:if="${history.sensorId} == ${sensor.id}">
                                                                 <td th:text="${#temporals.format(history.timestamp, 'dd/MM/yyyy HH:mm')}"></td>
                                                                 <td th:text="${#strings.arraySplit(history.data, ',')[0]}"></td>
-                                                                <td th:text="${#strings.arraySplit(history.data, ',')[1]}"></td>
+                                                                <td th:text="${#lists.size(#strings.arraySplit(history.data, ',')) > 1 ? #strings.arraySplit(history.data, ',')[1] : '-'}"></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
