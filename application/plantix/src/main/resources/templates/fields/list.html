@@ -30,8 +30,13 @@
                                                 HW390: Humedad del sustrato <span th:text="${sensor.latestValue}"></span>%
                                             </span>
                                             <span th:case="'DHT11'">
-                                                DHT11: <span th:with="temp=${#strings.arraySplit(sensor.latestValue, ',')[0]}, hum=${#strings.arraySplit(sensor.latestValue, ',')[1]}">
-                                                    Temperatura del Aire: <span th:text="${temp}"></span>°C / Humedad del Aire: <span th:text="${hum}"></span>%
+                                                DHT11: <span th:with="splitVal=${#strings.arraySplit(sensor.latestValue, ',')}">
+                                                    <span th:if="${#lists.size(splitVal) >= 2}">
+                                                        Temperatura del Aire: <span th:text="${splitVal[0]}"></span>°C / Humedad del Aire: <span th:text="${splitVal[1]}"></span>%
+                                                    </span>
+                                                    <span th:unless="${#lists.size(splitVal) >= 2}">
+                                                        Valor inválido
+                                                    </span>
                                                 </span>
                                             </span>
                                             <span th:case="*">
