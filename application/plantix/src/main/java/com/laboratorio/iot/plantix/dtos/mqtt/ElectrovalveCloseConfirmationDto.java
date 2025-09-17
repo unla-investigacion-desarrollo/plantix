@@ -10,7 +10,12 @@ import java.time.Instant;
 @Data
 public class ElectrovalveCloseConfirmationDto {
     @NotNull(message = "El ID del field es obligatorio")
-    private Long field;
+    @JsonProperty("field")
+    private Long fieldId;
+    
+    @NotEmpty(message = "El ID de la válvula es obligatorio")
+    @JsonProperty("valve_id")
+    private String valveId;
     
     @NotEmpty(message = "El ID de la solicitud es obligatorio")
     @JsonProperty("request_id")
@@ -18,4 +23,7 @@ public class ElectrovalveCloseConfirmationDto {
     
     @NotNull(message = "La marca de tiempo es obligatoria")
     private Instant timestamp;
+    
+    @JsonProperty("water_consumed_liters")
+    private Double waterConsumedLiters;
 }

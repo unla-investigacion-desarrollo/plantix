@@ -20,7 +20,10 @@ public class MQTTBrokerInformation {
     // Incoming topics (subscriptions)
     public static final String REQUEST_SENSOR_DATA_TOPIC = BASE_TOPIC + "/request/sensor/data";
     public static final String DHT11_TOPIC = FIELD_TOPIC + "/+/sensor/dht11";
+    public static final String DHT11_TEMP_TOPIC = DHT11_TOPIC + "/temperature";
+    public static final String DHT11_HUMIDITY_TOPIC = DHT11_TOPIC + "/humidity";
     public static final String SUBSTRATE_MOISTURE_TOPIC = FIELD_TOPIC + "/+/sensor/substrate_moisture";
+    public static final String SENSOR_SUBSTRATE_MOISTURE_TOPIC = SUBSTRATE_MOISTURE_TOPIC;
     public static final String ELECTROVALVE_OPEN_TOPIC = FIELD_TOPIC + "/+/electrovalve/open";
     public static final String ELECTROVALVE_CLOSE_TOPIC = FIELD_TOPIC + "/+/electrovalve/close";
     public static final String ERRORS_TOPIC = BASE_TOPIC + "/errors";

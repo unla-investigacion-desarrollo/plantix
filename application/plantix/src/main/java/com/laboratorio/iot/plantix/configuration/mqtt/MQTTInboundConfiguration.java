@@ -8,13 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.core.MessageProducer;
-import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.support.DefaultPahoMessageConverter;
-import org.springframework.messaging.Message;
+import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.MessagingException;
+import org.springframework.integration.annotation.Router;
+import org.springframework.integration.mqtt.support.MqttHeaders;
 
 /**
  * Configuracion para mensajes MQTT entrantes (suscripción).
@@ -31,39 +31,30 @@ public class MQTTInboundConfiguration {
     }
 
     @Bean
-    public MessageProducer inbound(MqttConnectOptions options) {
-        MqttPahoMessageDrivenChannelAdapter adapter = 
+    public MessageProducer inbound() {
+        MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(
-                    MQTTBrokerInformation.URL, 
-                    CLIENT_ID, 
-                    mqttClientFactory(options));
-        
+                        CLIENT_ID,
+                        mqttClientFactory(),
+                        MQTTBrokerInformation.REQUEST_SENSOR_DATA_TOPIC,
+                        MQTTBrokerInformation.DHT11_TOPIC,
+                        MQTTBrokerInformation.SUBSTRATE_MOISTURE_TOPIC,
+                        MQTTBrokerInformation.ELECTROVALVE_OPEN_TOPIC,
+                        MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC,
+                        MQTTBrokerInformation.ERRORS_TOPIC
+                );
+
         adapter.setCompletionTimeout(COMPLETION_TIMEOUT);
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(QOS);
         adapter.setOutputChannel(mqttInputChannel());
-        
-        // Suscribirse a todos los tópicos requeridos
-        adapter.addTopic(MQTTBrokerInformation.REQUEST_SENSOR_DATA_TOPIC);
-        adapter.addTopic(MQTTBrokerInformation.DHT11_TOPIC);
-        adapter.addTopic(MQTTBrokerInformation.SUBSTRATE_MOISTURE_TOPIC);
-        adapter.addTopic(MQTTBrokerInformation.ELECTROVALVE_OPEN_TOPIC);
-        adapter.addTopic(MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC);
-        adapter.addTopic(MQTTBrokerInformation.ERRORS_TOPIC);
-        
         return adapter;
     }
 
     @Bean
-    @ServiceActivator(inputChannel = "mqttInputChannel")
-    public MessageHandler messageHandler(MqttMessageService mqttMessageService) {
-        return mqttMessageService::handleMessage;
-    }
-
-    @Bean
-    public DefaultMqttPahoClientFactory mqttClientFactory(MqttConnectOptions options) {
+    public DefaultMqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
-        factory.setConnectionOptions(options);
+        factory.setConnectionOptions(mqttConnectOptions());
         return factory;
     }
 
@@ -81,4 +72,112 @@ public class MQTTInboundConfiguration {
         options.setAutomaticReconnect(true);
         return options;
     }
+
+    // Router: dirige según el tópico recibido hacia canales dedicados
+    @Router(inputChannel = "mqttInputChannel")
+    public String mqttInboundRouter(org.springframework.messaging.Message<?> message) {
+        String topic = (String) message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC);
+        if (topic == null) return null;
+        if (topic.endsWith("/sensor/dht11")) return "dht11InputChannel";
+        if (topic.endsWith("/sensor/substrate_moisture")) return "substrateMoistureInputChannel";
+        if (topic.endsWith("/electrovalve/open")) return "electrovalveOpenInputChannel";
+        if (topic.endsWith("/electrovalve/close")) return "electrovalveCloseInputChannel";
+        if (topic.endsWith("/errors")) return "errorsInputChannel";
+        if (MQTTBrokerInformation.REQUEST_SENSOR_DATA_TOPIC.equals(topic)) return "requestSensorDataInputChannel";
+        return null; // sin canal si no coincide
+    }
+
+    // Canales dedicados
+    @Bean
+    public MessageChannel dht11InputChannel() { return new DirectChannel(); }
+
+    @Bean
+    public MessageChannel substrateMoistureInputChannel() { return new DirectChannel(); }
+
+    @Bean
+    public MessageChannel electrovalveOpenInputChannel() { return new DirectChannel(); }
+
+    @Bean
+    public MessageChannel electrovalveCloseInputChannel() { return new DirectChannel(); }
+
+    @Bean
+    public MessageChannel errorsInputChannel() { return new DirectChannel(); }
+
+    @Bean
+    public MessageChannel requestSensorDataInputChannel() { return new DirectChannel(); }
+
+    // Handlers específicos por canal
+    @Bean
+    @ServiceActivator(inputChannel = "dht11InputChannel")
+    public MessageHandler dht11Handler(MqttMessageService service) {
+        return message -> {
+            try {
+                service.processDht11Data(message.getPayload().toString());
+            } catch (Exception e) {
+                throw new IllegalStateException("Error processing DHT11 message", e);
+            }
+        };
+    }
+
+    @Bean
+    @ServiceActivator(inputChannel = "substrateMoistureInputChannel")
+    public MessageHandler substrateMoistureHandler(MqttMessageService service) {
+        return message -> {
+            try {
+                service.processSubstrateMoistureData(message.getPayload().toString());
+            } catch (Exception e) {
+                throw new IllegalStateException("Error processing substrate moisture message", e);
+            }
+        };
+    }
+
+    @Bean
+    @ServiceActivator(inputChannel = "electrovalveOpenInputChannel")
+    public MessageHandler electrovalveOpenHandler(MqttMessageService service) {
+        return message -> {
+            try {
+                service.processElectrovalveOpenCommand(message.getPayload().toString());
+            } catch (Exception e) {
+                throw new IllegalStateException("Error processing electrovalve open command", e);
+            }
+        };
+    }
+
+    @Bean
+    @ServiceActivator(inputChannel = "electrovalveCloseInputChannel")
+    public MessageHandler electrovalveCloseHandler(MqttMessageService service) {
+        return message -> {
+            try {
+                service.processElectrovalveCloseConfirmation(message.getPayload().toString());
+            } catch (Exception e) {
+                throw new IllegalStateException("Error processing electrovalve close confirmation", e);
+            }
+        };
+    }
+
+    @Bean
+    @ServiceActivator(inputChannel = "errorsInputChannel")
+    public MessageHandler errorsHandler(MqttMessageService service) {
+        return message -> {
+            try {
+                service.processErrorMessage(message.getPayload().toString());
+            } catch (Exception e) {
+                throw new IllegalStateException("Error processing error message", e);
+            }
+        };
+    }
+
+    @Bean
+    @ServiceActivator(inputChannel = "requestSensorDataInputChannel")
+    public MessageHandler requestSensorDataHandler(MqttMessageService service) {
+        return message -> {
+            try {
+                service.processSensorDataRequest(message.getPayload().toString());
+            } catch (Exception e) {
+                throw new IllegalStateException("Error processing sensor data request", e);
+            }
+        };
+    }
+
+    
 }

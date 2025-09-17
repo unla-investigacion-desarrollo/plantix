@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface SensorRepository extends JpaRepository<Sensor, Long> {
     Optional<Sensor> findByFieldIdAndName(Long fieldId, String name);
+    Optional<Sensor> findByExternalId(String externalId);
 }

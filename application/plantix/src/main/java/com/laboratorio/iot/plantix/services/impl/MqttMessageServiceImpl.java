@@ -12,19 +12,7 @@ import com.laboratorio.iot.plantix.repositories.DeviceRepository;
 import com.laboratorio.iot.plantix.repositories.SensorRepository;
 import com.laboratorio.iot.plantix.services.MqttMessageService;
 import lombok.RequiredArgsConstructor;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.laboratorio.iot.plantix.dtos.mqtt.*;
-import com.laboratorio.iot.plantix.entities.Device;
-import com.laboratorio.iot.plantix.entities.DeviceHistory;
-import com.laboratorio.iot.plantix.entities.Sensor;
-import com.laboratorio.iot.plantix.exceptions.mqtt.MQTTInvalidPayloadException;
-import com.laboratorio.iot.plantix.repositories.DeviceHistoryRepository;
-import com.laboratorio.iot.plantix.repositories.DeviceRepository;
-import com.laboratorio.iot.plantix.repositories.SensorRepository;
-import com.laboratorio.iot.plantix.services.MqttMessageService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessagingException;
@@ -36,23 +24,13 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class MqttMessageServiceImpl implements MqttMessageService {
     
     private final ObjectMapper objectMapper;
     private final DeviceRepository deviceRepository;
     private final DeviceHistoryRepository deviceHistoryRepository;
     private final SensorRepository sensorRepository;
-    
-    @Autowired
-    public MqttMessageServiceImpl(ObjectMapper objectMapper,
-                                DeviceRepository deviceRepository,
-                                DeviceHistoryRepository deviceHistoryRepository,
-                                SensorRepository sensorRepository) {
-        this.objectMapper = objectMapper;
-        this.deviceRepository = deviceRepository;
-        this.deviceHistoryRepository = deviceHistoryRepository;
-        this.sensorRepository = sensorRepository;
-    }
 
     @Override
     public void handleMessage(Message<?> message) throws MessagingException {
@@ -98,7 +76,7 @@ public class MqttMessageServiceImpl implements MqttMessageService {
             
             // Procesar cada grupo de sensores en la solicitud
             for (SensorDataRequestDto.SensorGroupDto sensorGroup : request.getSensorGroups()) {
-                procesarGrupoSensores(request, sensorGroup);
+                processSensorGroup(request, sensorGroup);
             }
             
             log.debug("Procesamiento de solicitud de datos completado - ID: {}", request.getRequestId());
@@ -198,7 +176,6 @@ public class MqttMessageServiceImpl implements MqttMessageService {
             // No lanzamos la excepción para permitir que continúen otras solicitudes
         }
     }
-    }
 
     @Override
     @Transactional
@@ -251,8 +228,9 @@ public class MqttMessageServiceImpl implements MqttMessageService {
     public void processSubstrateMoistureData(String payload) throws MQTTInvalidPayloadException, JsonProcessingException {
         try {
             SubstrateMoistureDataDto dto = objectMapper.readValue(payload, SubstrateMoistureDataDto.class);
+            int moisturePct = computeMoisturePercentage(dto);
             log.info("Datos de humedad de sustrato recibidos - Field: {}, Sensor: {}, Humedad: {}%, Timestamp: {}", 
-                    dto.getField(), dto.getSensorId(), dto.getMoisture(), dto.getTimestamp());
+                    dto.getField(), dto.getSensorId(), moisturePct, dto.getTimestamp());
             
             // Validaciones
             if (dto.getField() == null) {
@@ -273,14 +251,14 @@ public class MqttMessageServiceImpl implements MqttMessageService {
             Sensor sensor = sensorOpt.get();
             
             // Actualizar el último valor del sensor
-            sensor.setLastMoistureReading(dto.getMoisture());
+            sensor.setLastMoistureReading(moisturePct);
             sensor.setLastReadingTime(dto.getTimestamp() != null ? dto.getTimestamp() : LocalDateTime.now());
             
             // Guardar el registro de historial
             DeviceHistory history = new DeviceHistory();
             history.setDevice(sensor.getDevice());
             history.setEventTime(dto.getTimestamp() != null ? dto.getTimestamp() : LocalDateTime.now());
-            history.setMoisture(dto.getMoisture());
+            history.setMoisture(moisturePct);
             history.setEventType("MOISTURE_READING");
             
             sensorRepository.save(sensor);
@@ -295,6 +273,38 @@ public class MqttMessageServiceImpl implements MqttMessageService {
             log.error("Error inesperado al procesar datos de humedad del sustrato: {}", e.getMessage(), e);
             throw new MQTTInvalidPayloadException("Error al procesar los datos de humedad del sustrato", e);
         }
+    }
+
+    private int computeMoisturePercentage(SubstrateMoistureDataDto dto) throws MQTTInvalidPayloadException {
+        Integer value = dto.getValue();
+        Boolean raw = dto.getRaw();
+        if (value == null || raw == null) {
+            throw new MQTTInvalidPayloadException("Campos 'value' y 'raw' son requeridos para humedad de sustrato");
+        }
+        if (!raw) {
+            // value representa porcentaje 0-100
+            int pct = Math.max(0, Math.min(100, value));
+            return pct;
+        }
+        // raw == true: mapear desde rango calibrado
+        if (dto.getRange() == null || dto.getRange().getDry() == null || dto.getRange().getWet() == null) {
+            throw new MQTTInvalidPayloadException("'range.dry' y 'range.wet' son requeridos cuando raw=true");
+        }
+        int dry = dto.getRange().getDry();
+        int wet = dto.getRange().getWet();
+        if (dry == wet) {
+            return 0; // evitar división por cero, asumimos 0%
+        }
+        // Normalizar value dentro [dry..wet]
+        int clamped = Math.max(Math.min(value, Math.max(dry, wet)), Math.min(dry, wet));
+        double ratio;
+        if (wet > dry) {
+            ratio = (clamped - dry) / (double) (wet - dry);
+        } else {
+            ratio = (dry - clamped) / (double) (dry - wet);
+        }
+        int pct = (int) Math.round(ratio * 100.0);
+        return Math.max(0, Math.min(100, pct));
     }
 
     /**

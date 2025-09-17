@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory;
+import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 import org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
@@ -48,6 +49,23 @@ public class MQTTOutboundConfiguration {
         options.setCleanSession(true);
         options.setAutomaticReconnect(true);
         return options;
+    }
+    
+    /**
+     * Creates a message handler for the specified topic
+     * @param clientFactory The MQTT client factory
+     * @param topic The topic to publish to
+     * @return Configured message handler
+     */
+    public static MessageHandler constructMessageHandler(MqttPahoClientFactory clientFactory, String topic) {
+        MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler(
+                CLIENT_ID + "-" + System.currentTimeMillis(),
+                clientFactory
+        );
+        messageHandler.setAsync(true);
+        messageHandler.setDefaultTopic(topic);
+        messageHandler.setDefaultQos(MQTTBrokerInformation.DEFAULT_SENSOR_QOS);
+        return messageHandler;
     }
 
     @Bean

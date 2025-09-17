@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface DeviceRepository extends JpaRepository<Device, Long> {
     Optional<Device> findByFieldIdAndType(Long fieldId, String type);
+    Optional<Device> findByFieldIdAndTypeAndExternalId(Long fieldId, String type, String externalId);
 }

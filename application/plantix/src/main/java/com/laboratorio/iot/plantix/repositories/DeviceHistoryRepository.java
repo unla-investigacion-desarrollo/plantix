@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface DeviceHistoryRepository extends JpaRepository<DeviceHistory, Long> {
     Optional<DeviceHistory> findFirstByDeviceOrderByPowerOnTimeDesc(Device device);
+    Optional<DeviceHistory> findTopByDeviceOrderByEventTimeDesc(Device device);
 }
