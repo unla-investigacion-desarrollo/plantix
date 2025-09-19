@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/head :: head('Login')}">
+    <title></title>
+</head>
+<body class="bg-gradient-primary">
+<div class="container py-3">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center pb-3">
+                                    <h1 class="h4 text-gray-900 mb-4">Ticketo</h1>
+                                    <small class="text-danger" th:if="${error != null}">Credenciales inválidas.</small>
+                                </div>
+                                <form class="user" method="post" th:action="@{/auth/login-process}">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control form-control-user"
+                                               id="username" name="username" aria-describedby="emailHelp"
+                                               placeholder="Ingrese su email">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user"
+                                               id="password" name="password" placeholder="Ingrese su contraseña">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        Login
+                                    </button>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" th:href="@{/auth/register}">Crear Cuenta</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>

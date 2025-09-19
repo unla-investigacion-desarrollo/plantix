@@ -28,9 +28,9 @@ public class SecurityConfiguration {
                                 response.setContentType("application/json");
                                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                                 response.getWriter().write("{\"error\": \"Unauthorized\"}");
-                            } else { // manejamos acceso no autenticado a traves de un navegador web O_______o
-                                // redirigir a la view correspondiente del login:
-                                // response.sendRedirect("/login"); , por ej.
+                            } else {
+                                // manejamos acceso no autenticado a traves de un navegador web O_______o
+                                response.sendRedirect("/auth/login");
                             }
                         })
                         // a partir de aca el usuario ya está autenticado c:
@@ -41,37 +41,24 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable()) // es discutible a futuro :c , pero como ahora manejamos sesiones stateless con http basic, no nos tenemos que preocupar por este tipo de ataque
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(httpRequest -> {
-                    /*
-                    cuando tengamos los endpoints en los controllers, aca vamos a definir
-                    que roles y permisos se requieren para pegarle a ciertas rutas o___o
-                    por ej, si queremos que solo usuarios autenticados pueden pegarle a los endpoints que arranquen con /field/:
-                    httpRequest.requestMatchers("/field/**").authenticated();
-                     */
-                    httpRequest.anyRequest().permitAll(); //temporal, para que spring security no nos moleste
+                    httpRequest.requestMatchers("/css/**", "/img/**", "/js/**", "/libs/**").permitAll();
+                    httpRequest.requestMatchers("/templates/fragments/**").permitAll();
+                    httpRequest.requestMatchers("/auth/**").permitAll();
+                    httpRequest.anyRequest().authenticated();
                 })
-//                .formLogin(login -> {
-//                    /*
-//                    aca simplemente hay que indicarle a spring security las rutas que vamos a usar
-//                    para manejar el login de los usuarios
-//                    dejo comentado codigo de ejemplo de Ticketo, un sistema hecho por Emi
-//                    cuando tengamos las rutas del login por parte de los controllers, podemos
-//                    descomentar este codigo y reemplazar las rutas por las de plantix
-//                     */
-//                    //login.loginPage("/auth/login");
-//                    //login.loginProcessingUrl("/auth/loginProcess");//POST
-//                    //login.usernameParameter("username");
-//                    //login.passwordParameter("password");
-//                    //login.defaultSuccessUrl("/auth/loginSuccess", true);
-//                    //login.permitAll();
-//                })
-//                .logout(logout -> {
-//                    /*
-//                    misma idea que con el metodo anterior a este, pero para procesar el logout
-//                     */
-//                    //logout.logoutUrl("/auth/logout");//POST
-//                    //logout.logoutSuccessUrl("/auth/login?logout=true");
-//                    //logout.permitAll();
-//                })
+                .formLogin(login -> {
+                    login.loginPage("/auth/login");
+                    login.loginProcessingUrl("/auth/login-process");//POST
+                    login.usernameParameter("username");
+                    login.passwordParameter("password");
+                    login.defaultSuccessUrl("/auth/login-success", true);
+                    login.permitAll();
+                })
+                .logout(logout -> {
+                    logout.logoutUrl("/auth/logout");
+                    logout.logoutSuccessUrl("/auth/logout");
+                    logout.permitAll();
+                })
                 .build();
     }
 
