@@ -19,29 +19,15 @@ public class FieldService implements IFieldService{
 
     public List<FieldDTO> findAllFields() {
         List<Field> fields = fieldRepository.findAll();
-        return fields.stream().map(field -> new FieldDTO(
-                field.getId(),
-                field.getLocation(),
-                field.getPhValue(),
-                field.getPhValueMin(),
-                field.getPhValueMax(),
-                field.getSubstrateHumidity(),
-                field.getSubstrateHumidityMin(),
-                field.getSubstrateHumidityMax(),
-                field.getTemperature(),
-                field.getTemperatureMin(),
-                field.getTemperatureMax(),
-                field.getHumidity(),
-                field.getHumidityMin(),
-                field.getHumidityMax(),
-                field.getLight(),
-                field.getLightMin(),
-                field.getLightMax(),
-                field.getNotes()
-        )).toList();
+        return fields.stream().map(this::mapToDTO).toList();
     }
     public FieldDTO findFieldById(Long fieldId) throws Exception {
         Field field = fieldRepository.findById(fieldId).orElseThrow(()-> new Exception("Field not found with id: " + fieldId));
+        return mapToDTO(field);
+
+    }
+
+    private FieldDTO mapToDTO(Field field) {
         return new FieldDTO(
                 field.getId(),
                 field.getLocation(),
