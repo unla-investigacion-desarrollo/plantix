@@ -14,10 +14,6 @@ public class AuthController {
     }
     @GetMapping("/login-success")
     public String loginSuccess() {
-        return ViewRouterHelper.INDEX;
-    }
-    @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/auth/login";
-    }
+        return "redirect:/";
+    } //esta es la url de la home page:3
 }
