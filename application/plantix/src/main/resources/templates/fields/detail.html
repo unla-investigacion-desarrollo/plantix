@@ -1,0 +1,129 @@
+<!-- Import head fragment -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Detalle de Cantero')"></head>
+<body id="page-top">
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div th:replace="fragments/topbar :: topbar"></div>
+                <div class="container-fluid">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="h3 text-gray-800" th:text="${field.location}"></h1>
+                        <a th:href="@{'/fields/list'}" class="btn btn-secondary btn-sm">Volver</a>
+                    </div>
+                    <!-- Field details section -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="m-0 font-weight-bold text-primary">Detalles del Cantero</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><strong>pH Ideal:</strong> <span th:text="${field.phValue}"></span> (Min: <span th:text="${field.phValueMin}"></span> / Max: <span th:text="${field.phValueMax}"></span>)</li>
+                                        <li class="list-group-item"><strong>Humedad del sustrato Ideal:</strong> <span th:text="${field.substrateHumidity}"></span>% (Min: <span th:text="${field.substrateHumidityMin}"></span>% / Max: <span th:text="${field.substrateHumidityMax}"></span>%)</li>
+                                        <li class="list-group-item"><strong>Temperatura Ideal:</strong> <span th:text="${field.temperature}"></span>°C (Min: <span th:text="${field.temperatureMin}"></span>°C / Max: <span th:text="${field.temperatureMax}"></span>°C)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><strong>Humedad del aire Ideal:</strong> <span th:text="${field.humidity}"></span>% (Min: <span th:text="${field.humidityMin}"></span>% / Max: <span th:text="${field.humidityMax}"></span>%)</li>
+                                        <li class="list-group-item"><strong>Luz Ideal:</strong> <span th:text="${field.light}"></span> (Min: <span th:text="${field.lightMin}"></span> / Max: <span th:text="${field.lightMax}"></span>)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sensors section -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="m-0 font-weight-bold text-primary">Sensores</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12" th:each="sensor : ${sensors}">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5 class="m-0 font-weight-bold text-primary" th:text="${sensor.name}"></h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div th:switch="${sensor.name}">
+                                                <div th:case="'HW390'">
+                                                    <h6>Humedad del sustrato</h6>
+                                                    <table class="table table-sm table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Fecha</th>
+                                                                <th>Valor</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr th:each="history : ${sensorHistories}" th:if="${history.sensorId} == ${sensor.id}">
+                                                                <td th:text="${#temporals.format(history.timestamp, 'dd/MM/yyyy HH:mm')}"></td>
+                                                                <td th:text="${history.data} + '%' "></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div th:case="'DHT11'">
+                                                    <h6>Temperatura y Humedad del Aire</h6>
+                                                    <table class="table table-sm table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Fecha</th>
+                                                                <th>Temperatura (°C)</th>
+                                                                <th>Humedad (%)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr th:each="history : ${sensorHistories}" th:if="${history.sensorId} == ${sensor.id}">
+                                                                <td th:text="${#temporals.format(history.timestamp, 'dd/MM/yyyy HH:mm')}"></td>
+                                                                <td th:text="${#strings.arraySplit(history.data, ',')[0]}"></td>
+                                                                <td th:text="${#lists.size(#strings.arraySplit(history.data, ',')) > 1 ? #strings.arraySplit(history.data, ',')[1] : '-'}"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div th:case="*">
+                                                    <h6>Valores</h6>
+                                                    <table class="table table-sm table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Fecha</th>
+                                                                <th>Valor</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr th:each="history : ${sensorHistories}" th:if="${history.sensorId} == ${sensor.id}">
+                                                                <td th:text="${#temporals.format(history.timestamp, 'dd/MM/yyyy HH:mm')}"></td>
+                                                                <td th:text="${history.data}"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notes section -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="m-0 font-weight-bold text-primary">Notas</h5>
+                        </div>
+                        <div class="card-body">
+                            <p th:text="${field.notes}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="fragments/footer :: footer"></div>
+        </div>
+    </div>
+    <div th:replace="fragments/scripts :: scripts"></div>
+</body>
+</html>

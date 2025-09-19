@@ -1,0 +1,67 @@
+<!-- Import head fragment -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Fields List')"></head>
+<body id="page-top">
+    <div id="wrapper">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div th:replace="fragments/topbar :: topbar"></div>
+
+                <div class="container-fluid">
+                    <h1 class="h3 mb-4 text-gray-800">Canteros</h1>
+                    <!-- Stack cards vertically -->
+                    <div>
+                        <!-- Iterate over fields -->
+                        <div class="card shadow mb-4" th:each="field : ${fields}">
+                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                <h6 class="m-0 font-weight-bold text-primary" th:text="${field.location}"></h6>
+                                <a th:href="@{'/fields/' + ${field.id} + '/details'}" class="btn btn-primary btn-sm">
+                                    Ver detalles
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="font-weight-bold">Sensors</h6>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" th:each="sensor : ${sensors}" th:if="${sensor.fieldId} == ${field.id}">
+                                        <span th:switch="${sensor.name}">
+                                            <span th:case="'HW390'">
+                                                HW390: Humedad del sustrato <span th:text="${sensor.latestValue}"></span>%
+                                            </span>
+                                            <span th:case="'DHT11'">
+                                                DHT11: <span th:with="splitVal=${#strings.arraySplit(sensor.latestValue, ',')}">
+                                                    <span th:if="${#lists.size(splitVal) >= 2}">
+                                                        Temperatura del Aire: <span th:text="${splitVal[0]}"></span>°C / Humedad del Aire: <span th:text="${splitVal[1]}"></span>%
+                                                    </span>
+                                                    <span th:unless="${#lists.size(splitVal) >= 2}">
+                                                        Valor inválido
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <span th:case="*">
+                                                <span th:text="${sensor.name}"></span>: <span th:text="${sensor.latestValue}"></span>
+                                            </span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End field card -->
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <div th:replace="fragments/footer :: footer"></div>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scripts -->
+    <div th:replace="fragments/scripts :: scripts"></div>
+</body>
+</html>
