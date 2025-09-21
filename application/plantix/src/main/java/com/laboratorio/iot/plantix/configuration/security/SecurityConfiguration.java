@@ -1,6 +1,6 @@
 package com.laboratorio.iot.plantix.configuration.security;
 
-import com.laboratorio.iot.plantix.services.implementation.UserDetailsServiceImpl;
+import com.laboratorio.iot.plantix.services.implementation.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -33,10 +35,6 @@ public class SecurityConfiguration {
                                 response.sendRedirect("/auth/login");
                             }
                         })
-                        // a partir de aca el usuario ya está autenticado c:
-                        // si se dispara algun error, es por falta de autorizacion (permisos)
-                        // redirigir a una pagina que explique que el usuario no tiene permisos (error 403) para acceder a ese recurso:
-                        // .accessDeniedPage(ViewHelper.ACCESS_DENIED); , por ej.
                 )
                 .csrf(csrf -> csrf.disable()) // es discutible a futuro :c , pero como ahora manejamos sesiones stateless con http basic, no nos tenemos que preocupar por este tipo de ataque
                 .cors(Customizer.withDefaults())
@@ -44,6 +42,9 @@ public class SecurityConfiguration {
                     httpRequest.requestMatchers("/css/**", "/img/**", "/js/**", "/libs/**").permitAll();
                     httpRequest.requestMatchers("/templates/fragments/**").permitAll();
                     httpRequest.requestMatchers("/auth/**").permitAll();
+                    httpRequest.requestMatchers("/").permitAll();
+                    httpRequest.requestMatchers("/fields/list").permitAll();
+                    httpRequest.requestMatchers("/fields/*/detail").permitAll();
                     httpRequest.anyRequest().authenticated();
                 })
                 .formLogin(login -> {
@@ -68,7 +69,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService) {
+    public AuthenticationProvider authenticationProvider(UserServiceImpl userDetailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
