@@ -42,16 +42,16 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
     }
 
     @Override
-    public User findByEmail(String email) throws UserNotFound {
+    public User findByEmail(String email) throws UserNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() ->
-                new UserNotFound("User with email " + email + " not found.")
+                new UserNotFoundException("User with email " + email + " not found.")
         );
     }
 
     @Override
-    public User findByDni(long dni) throws UserNotFound {
+    public User findByDni(long dni) throws UserNotFoundException {
         return userRepository.findByDni(dni).orElseThrow(() ->
-                new UserNotFound("User with DNI " + dni + " not found.")
+                new UserNotFoundException("User with DNI " + dni + " not found.")
         );
     }
 
