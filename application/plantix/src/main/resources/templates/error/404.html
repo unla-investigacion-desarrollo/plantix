@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/head :: head('Error 404')}">
+    <title></title>
+</head>
+<body class="bg-gradient-primary">
+
+<div class="container-fluid d-flex align-items-center justify-content-center min-vh-100">
+    <!-- Contenedor principal con fondo blanquecino y más compacto -->
+    <div class="text-center w-45 p-5 bg-white shadow rounded">
+        <div class="sidebar-brand-icon rotate-n-15 mb-4">
+            <i class="fas fa-exclamation-triangle fa-4x text-danger"></i>
+        </div>
+        <h1 class="h2 text-gray-900 mb-3 font-weight-bold">¡Error 404!</h1>
+        <p class="text-gray-700 mb-4">¡Ups! Parece que el recurso al que intentas acceder no existe.</p>
+        <a href="/" class="btn btn-primary btn-user btn-block">
+            Volver al Dashboard
+        </a>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+</body>
+</html>
