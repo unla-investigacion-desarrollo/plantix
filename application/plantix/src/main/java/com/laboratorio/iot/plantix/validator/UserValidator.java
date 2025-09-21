@@ -10,8 +10,9 @@ public class UserValidator {
     }
     public static boolean thisDNIIsValid(long dni) {
         boolean valid = true;
-        if(String.valueOf(dni).isBlank()) valid = false;
-        if(String.valueOf(dni).length() != VALID_DNI_LENGTH) valid = false;
+        String dniStr = String.valueOf(dni);
+        if(dniStr.isBlank()) valid = false;
+        if(dniStr.length() != VALID_DNI_LENGTH) valid = false;
         if(dni < 0) valid = false;
         return valid;
     }
