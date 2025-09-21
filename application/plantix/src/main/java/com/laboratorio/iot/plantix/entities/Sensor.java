@@ -27,4 +27,6 @@ public class Sensor {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_id", nullable = false)
     private Field field;
+
+    private Integer measurementInterval; // in seconds
 }

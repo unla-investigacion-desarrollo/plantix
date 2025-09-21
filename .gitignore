@@ -6,3 +6,5 @@ brokerMQTT/log/mosquitto.log
 .idea/
 # Ignorar archivos y carpetas de vscode
 .vscode
+
+PR_DESCRIPTION.md

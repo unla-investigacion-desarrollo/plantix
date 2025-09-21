@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "sensor_histories")
@@ -28,8 +27,6 @@ public class SensorHistory {
     @Column(name = "timestamp", nullable = false)
     private LocalDateTime timestamp;
 
-    @ElementCollection
-    @CollectionTable(name = "sensor_history_data", joinColumns = @JoinColumn(name = "history_id"))
-    @Column(name = "data_value")
-    private List<String> data;
+    @Column(name = "data_value", nullable = false)
+    private String data;
 }
