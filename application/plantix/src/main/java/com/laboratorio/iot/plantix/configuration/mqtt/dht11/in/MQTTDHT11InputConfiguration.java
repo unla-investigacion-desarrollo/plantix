@@ -16,7 +16,7 @@ public class MQTTDHT11InputConfiguration {
     }
 
     @ServiceActivator(inputChannel = MQTTInputChannelInformation.DHT11_CHANNEL)
-    public void dht11TempHandleMessage(Message<?> message) {
+    public void dht11HandleMessage(Message<?> message) {
         System.out.println("["+MQTTInputChannelInformation.DHT11_CHANNEL+"] Recibí este mensaje: "+message.getPayload());
     }
 }
