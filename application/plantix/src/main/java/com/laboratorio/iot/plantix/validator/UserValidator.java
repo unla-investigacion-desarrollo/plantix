@@ -3,17 +3,10 @@ package com.laboratorio.iot.plantix.validator;
 import java.util.regex.Pattern;
 
 public class UserValidator {
-    private static String GMAIL_REGEX = "\\*.@gmail.com";
-    private static String HOTMAIL_REGEX = "\\*.@hotmail.com";
-    private static int VALID_DNI_LENGTH = 8;
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    private static final int VALID_DNI_LENGTH = 8;
     public static boolean thisEmailIsValid(String email) {
-        boolean valid = true;
-
-        if(email.isBlank()) valid = false;
-        if(email.contains("@gmail.com") && !Pattern.matches(GMAIL_REGEX, email)) valid = false;
-        if(email.contains("@hotmail.com") && !Pattern.matches(HOTMAIL_REGEX, email)) valid = false;
-
-        return valid;
+        return !email.isBlank() && Pattern.matches(EMAIL_REGEX, email);
     }
     public static boolean thisDNIIsValid(long dni) {
         boolean valid = true;
