@@ -6,8 +6,11 @@ import com.laboratorio.iot.plantix.exceptions.user.*;
 import java.util.List;
 
 public interface IUserService {
-    User findByEmail(String email);
-    User findByDni(long dni);
+    User extractAuthenticatedUserFromSecurityContext();
+    User findByEmail(String email) throws UserNotFound;
+    User findByDni(long dni) throws UserNotFound;
     User save(User user) throws UserInvalidEmailException, UserInvalidDNIException, UserInvalidPasswordException;
     List<User> findAll();
+    boolean existsByEmail(String email);
+    boolean existsByDni(long dni);
 }

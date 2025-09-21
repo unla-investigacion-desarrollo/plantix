@@ -5,19 +5,19 @@ import com.laboratorio.iot.plantix.exceptions.user.*;
 import com.laboratorio.iot.plantix.repositories.IUserRepository;
 import com.laboratorio.iot.plantix.services.IUserService;
 import com.laboratorio.iot.plantix.validator.UserValidator;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService, IUserService {
+public class UserServiceImpl implements UserDetailsService, IUserService {
     private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    public UserDetailsServiceImpl(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -35,13 +35,22 @@ public class UserDetailsServiceImpl implements UserDetailsService, IUserService 
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
+    public User extractAuthenticatedUserFromSecurityContext() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @Override
-    public User findByDni(long dni) {
-        return userRepository.findByDni(dni).orElse(null);
+    public User findByEmail(String email) throws UserNotFound {
+        return userRepository.findByEmail(email).orElseThrow(() ->
+                new UserNotFound("User with email " + email + " not found.")
+        );
+    }
+
+    @Override
+    public User findByDni(long dni) throws UserNotFound {
+        return userRepository.findByDni(dni).orElseThrow(() ->
+                new UserNotFound("User with DNI " + dni + " not found.")
+        );
     }
 
     @Override
@@ -49,10 +58,8 @@ public class UserDetailsServiceImpl implements UserDetailsService, IUserService 
         if(!UserValidator.thisEmailIsValid(user.getEmail())) throw new UserInvalidEmailException("Save operation failed. Invalid email.");
         if(!UserValidator.thisDNIIsValid(user.getDni())) throw new UserInvalidDNIException("Save operation failed. Invalid DNI.");
         if(!UserValidator.thisPasswordIsValid(user.getPassword())) throw new UserInvalidPasswordException("Save operation failed. Invalid password.");
-        User userByEmail = findByEmail(user.getEmail());
-        User userByDNI = findByDni(user.getDni());
-        if(userByEmail != null) throw new UserInvalidEmailException("Save operation failed. Email already in use.");
-        if(userByDNI != null) throw new UserInvalidEmailException("Save operation failed. DNI already in use.");
+        if(existsByEmail(user.getEmail())) throw new UserInvalidEmailException("Save operation failed. Email already in use.");
+        if(existsByDni(user.getDni())) throw new UserInvalidDNIException("Save operation failed. DNI already in use.");
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -62,5 +69,15 @@ public class UserDetailsServiceImpl implements UserDetailsService, IUserService 
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existsByDni(long dni) {
+        return userRepository.existsByDni(dni);
     }
 }
