@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -55,13 +57,20 @@ public class UserServiceImpl implements UserDetailsService, IUserService {
 
     @Override
     public User save(User user) throws UserInvalidEmailException, UserInvalidDNIException, UserInvalidPasswordException {
-        if(!UserValidator.thisEmailIsValid(user.getEmail())) throw new UserInvalidEmailException("Save operation failed. Invalid email.");
-        if(!UserValidator.thisDNIIsValid(user.getDni())) throw new UserInvalidDNIException("Save operation failed. Invalid DNI.");
-        if(!UserValidator.thisPasswordIsValid(user.getPassword())) throw new UserInvalidPasswordException("Save operation failed. Invalid password.");
-        if(existsByEmail(user.getEmail())) throw new UserInvalidEmailException("Save operation failed. Email already in use.");
-        if(existsByDni(user.getDni())) throw new UserInvalidDNIException("Save operation failed. DNI already in use.");
+        if(!UserValidator.thisEmailIsValid(user.getEmail()))
+            throw new UserInvalidEmailException("Save operation failed. Invalid email.");
+        if(!UserValidator.thisDNIIsValid(user.getDni()))
+            throw new UserInvalidDNIException("Save operation failed. Invalid DNI.");
+        if(!UserValidator.thisPasswordIsValid(user.getPassword()))
+            throw new UserInvalidPasswordException("Save operation failed. Invalid password.");
+        if(existsByEmail(user.getEmail()))
+            throw new UserInvalidEmailException("Save operation failed. Email already in use.");
+        if(existsByDni(user.getDni()))
+            throw new UserInvalidDNIException("Save operation failed. DNI already in use.");
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if(user.getId() == null)
+            user.setRegistrationDate(LocalDateTime.now());
 
         return userRepository.save(user);
     }
