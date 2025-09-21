@@ -52,7 +52,8 @@ public class SecurityConfiguration {
                     login.loginProcessingUrl("/auth/login-process");//POST
                     login.usernameParameter("username");
                     login.passwordParameter("password");
-                    login.defaultSuccessUrl("/auth/login-success", true);
+                    //ya no es necesario:3 si lo comentamos spring security se encarga de la redireccion
+                    //login.defaultSuccessUrl("/auth/login-success", true);
                     login.permitAll();
                 })
                 .logout(logout -> {
