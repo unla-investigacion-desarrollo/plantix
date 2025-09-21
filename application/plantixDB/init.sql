@@ -15,7 +15,7 @@ VALUES(
     1,
     111111111,
     "admin@gmail.com",
-    "$2a$10$Ls7gjNQ9Fnbv5vCmY0SX1OXMMdQm4r0nwd6aAhXFkIRTVs/RviwBO",
+    "$2a$10$Ls7gjNQ9Fnbv5vCmY0SX1OXMMdQm4r0nwd6aAhXFkIRTVs/RviwBO", #la password es: admin n.n
     NOW()
 );
 
