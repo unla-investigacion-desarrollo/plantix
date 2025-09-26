@@ -36,7 +36,7 @@ public class MQTTDHT11InputConfiguration {
 
         //despues simplemente registramos en la bd la medicion del dht11 que nos llegó del esp32
         try {
-            sensorHistoryService.save(jsonData);
+            sensorHistoryService.saveDHT11(jsonData);
         } catch (MQTTInvalidPayloadException | SensorNotFoundException | InvalidSensorException |
                  InvalidSensorHistoryException exception) {
             LOGGER.error("Failed to save received data from this topic: "+ MQTTBrokerInformation.DHT11_TOPIC +".", exception);

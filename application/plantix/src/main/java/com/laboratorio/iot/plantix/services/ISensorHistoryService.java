@@ -16,5 +16,5 @@ public interface ISensorHistoryService {
     public SensorHistoryDTO getLastSensorHistoryBySensorId(Long sensorId) throws Exception;
     public List<SensorHistoryDTO> getLast10SensorHistoryBySensorId(Long sensorId) ;
     SensorHistory save(SensorHistory sensorHistory) throws InvalidSensorHistoryException;
-    void save(String jsonData) throws MQTTInvalidPayloadException, SensorNotFoundException, InvalidSensorException, InvalidSensorHistoryException;
+    void saveDHT11(String jsonData) throws MQTTInvalidPayloadException, SensorNotFoundException, InvalidSensorException, InvalidSensorHistoryException;
 }
