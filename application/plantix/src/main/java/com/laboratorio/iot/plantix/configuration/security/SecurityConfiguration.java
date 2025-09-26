@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                     httpRequest.requestMatchers("/auth/**").permitAll();
                     httpRequest.requestMatchers("/").permitAll();
                     httpRequest.requestMatchers("/fields/list").permitAll();
-                    httpRequest.requestMatchers("/fields/*/detail").permitAll();
+                    httpRequest.requestMatchers("/fields/*/details").permitAll();
                     httpRequest.anyRequest().authenticated();
                 })
                 .formLogin(login -> {
