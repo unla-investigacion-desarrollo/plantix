@@ -1,7 +1,9 @@
 package com.laboratorio.iot.plantix.configuration.mqtt.dht11.in;
 
+import com.laboratorio.iot.plantix.constants.SensorType;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTBrokerInformation;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTInputChannelInformation;
+import com.laboratorio.iot.plantix.dtos.mqtt.dht11.DHT11MQTTInputDTO;
 import com.laboratorio.iot.plantix.exceptions.mqtt.MQTTInvalidPayloadException;
 import com.laboratorio.iot.plantix.exceptions.sensor.InvalidSensorException;
 import com.laboratorio.iot.plantix.exceptions.sensor.SensorNotFoundException;
@@ -36,7 +38,7 @@ public class MQTTDHT11InputConfiguration {
 
         //despues simplemente registramos en la bd la medicion del dht11 que nos llegó del esp32
         try {
-            sensorHistoryService.saveDHT11(jsonData);
+            sensorHistoryService.save(jsonData, DHT11MQTTInputDTO.class, SensorType.DHT11);
         } catch (MQTTInvalidPayloadException | SensorNotFoundException | InvalidSensorException |
                  InvalidSensorHistoryException exception) {
             LOGGER.error("Failed to save received data from this topic: "+ MQTTBrokerInformation.DHT11_TOPIC +".", exception);
