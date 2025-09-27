@@ -7,6 +7,7 @@ import com.laboratorio.iot.plantix.exceptions.sensor.InvalidSensorException;
 import com.laboratorio.iot.plantix.exceptions.sensor.SensorNotFoundException;
 import com.laboratorio.iot.plantix.exceptions.sensorhistory.InvalidSensorHistoryException;
 
+
 import java.util.List;
 
 public interface ISensorHistoryService {

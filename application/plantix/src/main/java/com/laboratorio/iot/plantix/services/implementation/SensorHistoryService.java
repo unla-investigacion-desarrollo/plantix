@@ -90,5 +90,4 @@ public class SensorHistoryService implements ISensorHistoryService {
         sensorHistory.setTimestamp(((MQTTInputDTO) dto).getTimestamp());
         save(sensorHistory, dto);
     }
-
 }
