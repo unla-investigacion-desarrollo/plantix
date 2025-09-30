@@ -18,6 +18,7 @@ public class MQTTBrokerInformation {
     public static final String DHT11_TOPIC = "DHT11-topic";
     public static final String ELECTROVALVE_CLOSE_TOPIC = "electrovalve-close-topic";
     public static final String ERRORS_TOPIC =  "errors-topic";
+    public static final String HW390_TOPIC = "HW390-topic";
 
     // Outgoing topics (publications)
     public static final String REQUEST_SENSOR_DATA_TOPIC = "request-sensor-data-topic";
