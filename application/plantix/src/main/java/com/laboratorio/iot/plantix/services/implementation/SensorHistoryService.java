@@ -62,27 +62,17 @@ public class SensorHistoryService implements ISensorHistoryService {
                 )).toList();
     }
 
-    @Override
-    public SensorHistory save(SensorHistory sensorHistory) throws InvalidSensorHistoryException {
-        if(SensorHistoryValidator.thisSensorIsNotValid(sensorHistory.getSensor()))
-            throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Sensor is null.");
-        if(SensorHistoryValidator.thisTimestampIsNotValid(sensorHistory.getTimestamp()))
-            throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Timestamp is null.");
-        if(SensorHistoryValidator.thisDataIsNotValid(sensorHistory.getData()))
-            throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Data is empty or has an invalid format.");
-        return sensorHistoryRepository.save(sensorHistory);
-    }
 
     @Override
     public <T> SensorHistory save(SensorHistory sensorHistory, T dto) throws InvalidSensorHistoryException {
         // Validaciones válidas para cualquier tipo de MQTTInputDTO
         if(SensorHistoryValidator.thisSensorIsNotValid(sensorHistory.getSensor()))
-            throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Sensor is null.");
+                throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Sensor is null.");
         if(SensorHistoryValidator.thisTimestampIsNotValid(sensorHistory.getTimestamp()))
-            throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Timestamp is null.");
+                throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Timestamp is null.");
         if(SensorHistoryValidator.thisDataIsNotValid(sensorHistory.getData()))
-            throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Data is empty or has an invalid format.");
-
+                throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Data is empty or has an invalid format.");
+        
         // Cada validación varía del dto, ya que cada dto recibe data distinta
         if(dto instanceof DHT11MQTTInputDTO dht11MQTTInputDTO) {
             DHT11Data data = dht11MQTTInputDTO.getData();

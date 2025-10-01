@@ -43,6 +43,7 @@ public class MQTTInboundConfiguration {
                         mqttPahoClientFactory,
                         MQTTBrokerInformation.DHT11_TOPIC,
                         MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC,
+                        MQTTBrokerInformation.HW390_TOPIC,
                         MQTTBrokerInformation.ELECTROVALVE_OPEN_TOPIC,
                         MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC,
                         MQTTBrokerInformation.ERRORS_TOPIC);
@@ -69,6 +70,11 @@ public class MQTTInboundConfiguration {
                 MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC,
                 MQTTInputChannelInformation.SENSOR_SUBSTRATE_MOISTURE_CHANNEL);
                 
+        // Route HW390 sensor data
+        router.setChannelMapping(
+                MQTTBrokerInformation.HW390_TOPIC,
+                MQTTInputChannelInformation.HW390_CHANNEL);
+        
         // Route electrovalve open commands
         router.setChannelMapping(
                 MQTTBrokerInformation.ELECTROVALVE_OPEN_TOPIC,
@@ -79,7 +85,7 @@ public class MQTTInboundConfiguration {
                 MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC,
                 MQTTInputChannelInformation.ELECTROVALVE_CLOSE_CHANNEL);
         
-     // Route error confirmation
+        // Route error confirmation
         router.setChannelMapping(
                 MQTTBrokerInformation.ERRORS_TOPIC,
                 MQTTInputChannelInformation.ERROR_CHANNEL);
