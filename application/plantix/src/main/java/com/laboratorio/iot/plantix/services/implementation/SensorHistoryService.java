@@ -1,11 +1,10 @@
 package com.laboratorio.iot.plantix.services.implementation;
 
 import com.laboratorio.iot.plantix.configuration.mqtt.MQTTPayloadMapper;
-import com.laboratorio.iot.plantix.constants.SensorType;
 import com.laboratorio.iot.plantix.dtos.SensorHistoryDTO;
-import com.laboratorio.iot.plantix.dtos.mqtt.DHT11MQTTInputDTO;
 import com.laboratorio.iot.plantix.dtos.mqtt.MQTTInputDTO;
 import com.laboratorio.iot.plantix.dtos.mqtt.dht11.DHT11Data;
+import com.laboratorio.iot.plantix.dtos.mqtt.dht11.DHT11MQTTInputDTO;
 import com.laboratorio.iot.plantix.dtos.mqtt.hw390.HW390MQTTInputDTO;
 import com.laboratorio.iot.plantix.entities.Sensor;
 import com.laboratorio.iot.plantix.entities.SensorHistory;
@@ -39,7 +38,7 @@ public class SensorHistoryService implements ISensorHistoryService {
 
     @Override
     public SensorHistoryDTO getLastSensorHistoryBySensorId(Long sensorId) throws Exception {
-        SensorHistory lastSensorHistory = sensorHistoryRepository.findTopBySensorIdOrderByTimestampDesc(sensorId);
+        SensorHistory lastSensorHistory = sensorHistoryRepository.findTopBySensorIdOrderByTimestampDesc(sensorId).orElse(null);
 
         if (lastSensorHistory == null) {
             throw new Exception("No sensor history found for sensor with id " + sensorId);
@@ -72,9 +71,6 @@ public class SensorHistoryService implements ISensorHistoryService {
                 throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Sensor is null.");
         if(SensorHistoryValidator.thisTimestampIsNotValid(sensorHistory.getTimestamp()))
                 throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Timestamp is null.");
-        if(SensorHistoryValidator.thisDataIsNotValid(sensorHistory.getData()))
-                throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Data is empty or has an invalid format.");
-        
         // Cada validación varía del dto, ya que cada dto recibe data distinta
         if(dto instanceof DHT11MQTTInputDTO dht11MQTTInputDTO) {
             DHT11Data data = dht11MQTTInputDTO.getData();

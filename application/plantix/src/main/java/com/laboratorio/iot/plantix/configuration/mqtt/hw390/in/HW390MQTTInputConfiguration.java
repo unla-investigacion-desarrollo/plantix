@@ -3,7 +3,7 @@ package com.laboratorio.iot.plantix.configuration.mqtt.hw390.in;
 import com.laboratorio.iot.plantix.constants.SensorType;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTBrokerInformation;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTInputChannelInformation;
-import com.laboratorio.iot.plantix.dtos.mqtt.HW390MQTTInputDTO;
+import com.laboratorio.iot.plantix.dtos.mqtt.hw390.HW390MQTTInputDTO;
 import com.laboratorio.iot.plantix.exceptions.mqtt.MQTTInvalidPayloadException;
 import com.laboratorio.iot.plantix.exceptions.sensor.InvalidSensorException;
 import com.laboratorio.iot.plantix.exceptions.sensor.SensorNotFoundException;

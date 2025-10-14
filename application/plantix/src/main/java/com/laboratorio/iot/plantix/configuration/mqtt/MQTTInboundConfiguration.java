@@ -42,7 +42,6 @@ public class MQTTInboundConfiguration {
                         "receiverClient",
                         mqttPahoClientFactory,
                         MQTTBrokerInformation.DHT11_TOPIC,
-                        MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC,
                         MQTTBrokerInformation.HW390_TOPIC,
                         MQTTBrokerInformation.ELECTROVALVE_OPEN_TOPIC,
                         MQTTBrokerInformation.ELECTROVALVE_CLOSE_TOPIC,

@@ -23,7 +23,6 @@ public class MQTTBrokerInformation {
     // Outgoing topics (publications)
     public static final String REQUEST_SENSOR_DATA_TOPIC = "request-sensor-data-topic";
     public static final String ELECTROVALVE_OPEN_TOPIC = "electrovalve-open-topic";
-    public static final String SENSOR_SUBSTRATE_MOISTURE_TOPIC = "sensor-substrate-moisture-topic";
 
     // QoS levels
     public static final int QOS_AT_MOST_ONCE = 0;

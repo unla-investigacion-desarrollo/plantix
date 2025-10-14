@@ -14,10 +14,6 @@ public class SensorHistoryValidator {
         return localDateTime == null;
     }
 
-    public static boolean thisDataIsNotValid(String data) {
-        return data == null || data.isBlank();
-    }
-
     public static boolean thisDHT11DataIsNotValid(DHT11Data dht11Data) {
         return dht11Data == null;
     }

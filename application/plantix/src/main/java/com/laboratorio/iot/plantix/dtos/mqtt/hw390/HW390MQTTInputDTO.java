@@ -1,8 +1,7 @@
 package com.laboratorio.iot.plantix.dtos.mqtt.hw390;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.laboratorio.iot.plantix.dtos.mqtt.MQTTInputDTO;
 import lombok.*;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
