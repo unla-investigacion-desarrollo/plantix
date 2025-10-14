@@ -11,7 +11,7 @@ public class MQTTInputChannelInformation {
     // Sensor data channels
     public static final String SENSOR_DATA_CHANNEL = "sensorDataInputChannel";
     public static final String DHT11_CHANNEL = "dht11InputChannel";
-    public static final String SENSOR_SUBSTRATE_MOISTURE_CHANNEL = "sensorSubstrateMoistureInputChannel";
+    public static final String HW390_CHANNEL = "hw390InputChannel";
 
     // Electrovalve control channels
     public static final String ELECTROVALVE_OPEN_CHANNEL = "electrovalveOpenInputChannel";

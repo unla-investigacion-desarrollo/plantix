@@ -1,9 +1,9 @@
-package com.laboratorio.iot.plantix.configuration.mqtt.sensor.in;
+package com.laboratorio.iot.plantix.configuration.mqtt.hw390.in;
 
 import com.laboratorio.iot.plantix.constants.SensorType;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTBrokerInformation;
 import com.laboratorio.iot.plantix.constants.mqtt.MQTTInputChannelInformation;
-import com.laboratorio.iot.plantix.dtos.mqtt.sensor.SubstrateMoistureMQTTInputDTO;
+import com.laboratorio.iot.plantix.dtos.mqtt.HW390MQTTInputDTO;
 import com.laboratorio.iot.plantix.exceptions.mqtt.MQTTInvalidPayloadException;
 import com.laboratorio.iot.plantix.exceptions.sensor.InvalidSensorException;
 import com.laboratorio.iot.plantix.exceptions.sensor.SensorNotFoundException;
@@ -14,34 +14,38 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.integration.channel.DirectChannel;
 
 @Configuration
-public class MQTTSensorInputConfiguration {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MQTTSensorInputConfiguration.class);
+public class HW390MQTTInputConfiguration {
+    private final Logger LOGGER = LoggerFactory.getLogger(HW390MQTTInputConfiguration.class);
     private final ISensorHistoryService sensorHistoryService;
 
-    public MQTTSensorInputConfiguration(ISensorHistoryService sensorHistoryService) {
+    public HW390MQTTInputConfiguration(ISensorHistoryService sensorHistoryService) {
         this.sensorHistoryService = sensorHistoryService;
     }
 
     @Bean
-    public MessageChannel sensorSubstrateMoistureInputChannel() {
+    public MessageChannel hw390InputChannel() {
         return new DirectChannel();
     }
 
-    @ServiceActivator(inputChannel = MQTTInputChannelInformation.SENSOR_SUBSTRATE_MOISTURE_CHANNEL)
-    public void sensorHandleMessage(Message<?> message) {
+    @ServiceActivator(inputChannel = MQTTInputChannelInformation.HW390_CHANNEL)
+    public void hw390HandleMessage(Message<?> message) {
+        // Extraemos el payload (json con los datos) del mensaje que nos llegó
         String jsonData = message.getPayload().toString();
+
+        // Registramos en la bd la medición del hw390 que nos llegó del esp32
         try {
-            sensorHistoryService.save(jsonData, SubstrateMoistureMQTTInputDTO.class, SensorType.HW390);
+            sensorHistoryService.save(jsonData, HW390MQTTInputDTO.class, SensorType.HW390);
         } catch (MQTTInvalidPayloadException | SensorNotFoundException | InvalidSensorException |
                  InvalidSensorHistoryException exception) {
-            LOGGER.error("Failed to save received data from topic: {}.", MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC, exception);
+            LOGGER.error("Failed to save received data from this topic: " + MQTTBrokerInformation.HW390_TOPIC + ".", exception);
             return;
         }
-        LOGGER.info("HW390 data saved: {}", jsonData);
+
+        LOGGER.info("This data was successfully saved in sensor_histories table:\n" + jsonData);
     }
 }
