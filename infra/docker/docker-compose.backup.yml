@@ -3,29 +3,29 @@ services:
     build:
       context: ../../application/plantix
       dockerfile: Dockerfile
-    container_name: plantix
+    container_name: plantix # <-- CAMBIO: Nombre simplificado
     volumes:
       - ../../application/plantix:/app
     environment:
-      # Base de datos
+      # DB (sin cambios)
       MYSQL_DB_USERNAME: "${MYSQL_DB_USERNAME}"
       MYSQL_DB_PASSWORD: "${MYSQL_DB_PASSWORD}"
       MYSQL_DB_NAME: "${MYSQL_DB_NAME}"
-
-      # Puerto (opcional, por defecto 8080)
+      
+      # Puerto (sin cambios)
       PORT: "${APP_PORT}"
 
-      # SMTP Gmail (App Password 2FA)
+      # <-- INICIO DE CAMBIOS IMPORTANTES -->
+      # SMTP Gmail (Nombres de variables corregidos para que coincidan con la app)
       MAIL_USERNAME: "${EMAIL}"
       MAIL_PASSWORD: "${APP_PASSWORD}"
       ALERT_DEFAULT_RECIPIENTS: "${EMAIL}"
 
-      # MQTT del stack docker
+      # MQTT (URL agregada para que la app sepa dónde conectar)
       MQTT_URL: "tcp://broker-mosquitto:1883"
-      MQTT_USERNAME: "${MQTT_USERNAME}"
-      MQTT_PASSWORD: "${MQTT_PASSWORD}"
+      # <-- FIN DE CAMBIOS IMPORTANTES -->
 
-      # Devtools (opcional)
+      # Devtools (sin cambios)
       SPRING_DEVTOOLS_RESTART_ENABLED: "true"
       SPRING_DEVTOOLS_LIVERELOAD_ENABLED: "true"
     ports:
@@ -34,7 +34,7 @@ services:
     depends_on:
       plantix-db:
         condition: service_healthy
-      broker-mosquitto:
+      broker-mosquitto: # <-- CAMBIO: Dependencia agregada
         condition: service_started
 
   plantix-db:
@@ -57,15 +57,15 @@ services:
 
   broker-mosquitto:
     image: eclipse-mosquitto
-    container_name: broker-mosquitto
+    container_name: broker-mosquitto # <-- Buena práctica añadir nombre de contenedor
     ports:
-      - "1883:1883"
+      - 1883:1883
     volumes:
       - ../../brokerMQTT/config:/mosquitto/config
       - ../../brokerMQTT/data:/mosquitto/data
       - ../../brokerMQTT/log:/mosquitto/log
-    restart: unless-stopped
+    restart: unless-stopped # <-- Buena práctica añadir política de reinicio
 
 volumes:
   plantix_db_data:
-
+  

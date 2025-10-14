@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Error de Comunicación ESP32 - Plantix</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333333;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 600;
+    }
+    .header p {
+      margin: 10px 0 0 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .content {
+      padding: 30px 20px;
+    }
+    .alert-box {
+      background-color: #f8d7da;
+      border-left: 4px solid #dc3545;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .alert-box h2 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      color: #721c24;
+    }
+    .alert-box p {
+      margin: 0;
+      color: #721c24;
+    }
+    .details-table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+    }
+    .details-table tr {
+      border-bottom: 1px solid #e9ecef;
+    }
+    .details-table td {
+      padding: 12px 0;
+    }
+    .details-table td:first-child {
+      font-weight: 600;
+      color: #495057;
+      width: 30%;
+    }
+    .details-table td:last-child {
+      color: #212529;
+    }
+    .error-message {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: #dc3545;
+      overflow-x: auto;
+    }
+    .footer {
+      background-color: #f8f9fa;
+      padding: 20px;
+      text-align: center;
+      color: #6c757d;
+      font-size: 12px;
+    }
+    .footer p {
+      margin: 5px 0;
+    }
+    .icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="header">
+      <div class="icon">🌱</div>
+      <h1>Plantix</h1>
+      <p>Sistema de Monitoreo Agrícola</p>
+    </div>
+
+    <div class="content">
+      <div class="alert-box">
+        <h2>🔴 Error de Comunicación ESP32</h2>
+        <p>Se ha detectado un problema de comunicación con el dispositivo ESP32</p>
+      </div>
+
+      <table class="details-table">
+        <tr>
+          <td>📡 Topic MQTT:</td>
+          <td><strong>[[${topic}]]</strong></td>
+        </tr>
+      </table>
+
+      <p style="font-weight: 600; margin-bottom: 5px;">Mensaje de Error:</p>
+      <div class="error-message">[[${errorMessage}]]</div>
+
+      <p style="margin-top: 30px; padding: 15px; background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+        <strong>🔧 Pasos Recomendados:</strong>
+      </p>
+      <ul style="margin: 10px 0 0 20px; padding: 0;">
+        <li>Verifique la conectividad del dispositivo ESP32</li>
+        <li>Revise el estado del broker MQTT</li>
+        <li>Compruebe la alimentación eléctrica del dispositivo</li>
+        <li>Revise los logs del sistema para más detalles</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <p><strong>Plantix - Sistema de Monitoreo Agrícola</strong></p>
+      <p>Este es un correo automático, por favor no responder.</p>
+      <p style="margin-top: 10px; color: #999;">© 2025 Plantix. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</body>
+</html>
