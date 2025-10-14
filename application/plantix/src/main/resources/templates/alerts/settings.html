@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Configuración de alertas')"></head>
+<body id="page-top">
+<div id="wrapper">
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div th:replace="fragments/topbar :: topbar"></div>
+            <div class="container-fluid">
+                <h1 class="h3 mb-4 text-gray-800">Configuración de alertas</h1>
+
+                <!-- Mensajes de éxito y error -->
+                <div th:if="${saved}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    ✅ Configuración guardada correctamente.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div th:if="${testSent}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    ✅ <span th:text="${testMessage}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    ❌ <span th:text="${error}"></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form th:action="@{/admin/alerts}" th:object="${settings}" method="post" class="card shadow p-4 mb-4">
+                    <div class="form-group">
+                        <label for="recipients">Destinatarios (separar por coma o punto y coma)</label>
+                        <input id="recipients" type="text" class="form-control" th:field="*{recipients}" placeholder="admin@gmail.com, soporte@empresa.com" />
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="enableRangeAlerts" th:field="*{enableRangeAlerts}">
+                                <label class="form-check-label" for="enableRangeAlerts">Alertas por rango (T°, humedad, humedad de sustrato)</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="enableValveAlerts" th:field="*{enableValveAlerts}">
+                                <label class="form-check-label" for="enableValveAlerts">Alertas por electroválvula abierta</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="enableEsp32ErrorAlerts" th:field="*{enableEsp32ErrorAlerts}">
+                                <label class="form-check-label" for="enableEsp32ErrorAlerts">Alertas por error ESP32</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="minIntervalMinutes">Intervalo mínimo entre alertas (min)</label>
+                            <input id="minIntervalMinutes" type="number" min="1" class="form-control" th:field="*{minIntervalMinutes}" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="valveOpenTimeoutMinutes">Tiempo máximo válvula abierta (min)</label>
+                            <input id="valveOpenTimeoutMinutes" type="number" min="1" class="form-control" th:field="*{valveOpenTimeoutMinutes}" />
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar Configuración
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Formulario para enviar correo de prueba -->
+                <div class="card shadow p-4">
+                    <h5 class="mb-3">Probar configuración de correo</h5>
+                    <p class="text-muted">Envía un correo de prueba a los destinatarios configurados para verificar que el sistema de alertas funciona correctamente.</p>
+                    <form th:action="@{/admin/alerts/test}" method="post">
+                        <button type="submit" class="btn btn-info">
+                            <i class="fas fa-envelope"></i> Enviar Correo de Prueba
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+</div>
+<div th:replace="fragments/scripts :: scripts"></div>
+</body>
+</html>
+

@@ -65,11 +65,6 @@ public class MQTTInboundConfiguration {
                 MQTTBrokerInformation.DHT11_TOPIC,
                 MQTTInputChannelInformation.DHT11_CHANNEL);
                 
-        // Route substrate moisture sensor data
-        router.setChannelMapping(
-                MQTTBrokerInformation.SENSOR_SUBSTRATE_MOISTURE_TOPIC,
-                MQTTInputChannelInformation.SENSOR_SUBSTRATE_MOISTURE_CHANNEL);
-                
         // Route HW390 sensor data
         router.setChannelMapping(
                 MQTTBrokerInformation.HW390_TOPIC,

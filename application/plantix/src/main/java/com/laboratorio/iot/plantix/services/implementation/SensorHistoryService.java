@@ -14,6 +14,7 @@ import com.laboratorio.iot.plantix.exceptions.sensor.InvalidSensorException;
 import com.laboratorio.iot.plantix.exceptions.sensor.SensorNotFoundException;
 import com.laboratorio.iot.plantix.exceptions.sensorhistory.InvalidSensorHistoryException;
 import com.laboratorio.iot.plantix.repositories.ISensorHistoryRepository;
+import com.laboratorio.iot.plantix.services.IAlertService;
 import com.laboratorio.iot.plantix.services.ISensorHistoryService;
 import com.laboratorio.iot.plantix.services.ISensorService;
 import com.laboratorio.iot.plantix.validator.SensorHistoryValidator;
@@ -27,11 +28,13 @@ public class SensorHistoryService implements ISensorHistoryService {
     private final ISensorHistoryRepository sensorHistoryRepository;
     private final ISensorService sensorService;
     private final MQTTPayloadMapper mqttPayloadMapper;
+    private final IAlertService alertService;
 
-    public SensorHistoryService(ISensorHistoryRepository sensorHistoryRepository, @Lazy ISensorService sensorService, MQTTPayloadMapper mqttPayloadMapper) {
+    public SensorHistoryService(ISensorHistoryRepository sensorHistoryRepository, @Lazy ISensorService sensorService, MQTTPayloadMapper mqttPayloadMapper, IAlertService alertService) {
         this.sensorHistoryRepository = sensorHistoryRepository;
         this.sensorService = sensorService;
         this.mqttPayloadMapper = mqttPayloadMapper;
+        this.alertService = alertService;
     }
 
     @Override
@@ -65,7 +68,6 @@ public class SensorHistoryService implements ISensorHistoryService {
 
     @Override
     public <T> SensorHistory save(SensorHistory sensorHistory, T dto) throws InvalidSensorHistoryException {
-        // Validaciones válidas para cualquier tipo de MQTTInputDTO
         if(SensorHistoryValidator.thisSensorIsNotValid(sensorHistory.getSensor()))
                 throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Sensor is null.");
         if(SensorHistoryValidator.thisTimestampIsNotValid(sensorHistory.getTimestamp()))
@@ -85,8 +87,10 @@ public class SensorHistoryService implements ISensorHistoryService {
                 throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided HW390 Data is empty or has an invalid format.");
             sensorHistory.setData(data);
         }
-
-        return sensorHistoryRepository.save(sensorHistory);
+        SensorHistory saved = sensorHistoryRepository.save(sensorHistory);
+        // disparar alertas
+        alertService.processNewReading(saved);
+        return saved;
     }
 
     @Override
