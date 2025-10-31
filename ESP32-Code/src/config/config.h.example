@@ -1,0 +1,23 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+//WiFi
+const char *ssid = "WiFi-Name"; 
+const char *password = "WiFi-Password";
+
+//MQTT Broker
+const char *MQTT_BROKER = "ip-broker";
+const char *TOPIC_DHT11 = "topic";
+const char *MQTT_USERNAME = "broker-username";
+const char *MQTT_PASSWORD = "broker-password";
+const int MQTT_PORT = 1883; //brokerPort
+
+// Calibración suelo
+const int SECO = 3792;
+const int HUMEDO = 1279;
+const int UMBRAL_RIEGO = 50;
+
+// Intervals
+const long PUBLISH_INTERVAL = 10000;
+
+#endif // CONFIG_H
