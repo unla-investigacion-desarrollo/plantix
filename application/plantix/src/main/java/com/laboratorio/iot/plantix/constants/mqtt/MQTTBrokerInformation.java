@@ -23,6 +23,7 @@ public class MQTTBrokerInformation {
     public static final String REQUEST_SENSOR_DATA_TOPIC = "request-sensor-data-topic";
     public static final String ELECTROVALVE_OPEN_TOPIC = "electrovalve-open-topic";
     public static final String SENSOR_SUBSTRATE_MOISTURE_TOPIC = "sensor-substrate-moisture-topic";
+    public static final String HW390_CONFIGURATION_TOPIC = "hw390-config";
 
     // QoS levels
     public static final int QOS_AT_MOST_ONCE = 0;
