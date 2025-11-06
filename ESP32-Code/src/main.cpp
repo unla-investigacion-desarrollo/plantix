@@ -16,11 +16,12 @@ DisplayUtils displayUtils;
 
 // Crear instancia del sensor DHT11
 DhtSensor DhtSensor1(4, DHTPIN, DHT11);
+DhtSensor DhtSensor2(2, DHTPIN, DHT22);
 
 //Creamos instancias del HW390
 SoilMoisture SoilMoisture1(1, HUMEDAD_SUSTRATO_1,DRY_1,WET_1);
-// SoilMoisture SoilMoisture2(4, HUMEDAD_SUSTRATO_2,DRY_2,WET_2);
-// SoilMoisture SoilMoisture3(5, HUMEDAD_SUSTRATO_3,DRY_3,WET_3);
+SoilMoisture SoilMoisture2(4, HUMEDAD_SUSTRATO_2,DRY_2,WET_2);
+SoilMoisture SoilMoisture3(5, HUMEDAD_SUSTRATO_3,DRY_3,WET_3);
 
 // Crear instancia del controlador de válvula
 ValveController ValveController1(5, RELAY_ELECTROVALVULA_1);

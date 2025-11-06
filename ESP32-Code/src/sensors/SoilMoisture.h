@@ -17,6 +17,7 @@ class SoilMoisture{
           int actualRawValue;
           //active flag
           bool isActive;
+          float minutesSinceLastRead;
      public:
           //Constructor:
           SoilMoisture(int sensorId, int pin, int dry, int wet);

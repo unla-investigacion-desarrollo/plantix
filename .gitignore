@@ -6,5 +6,5 @@ brokerMQTT/log/mosquitto.log
 .idea/
 # Ignorar archivos y carpetas de vscode
 .vscode
-
+ESP32-Code/src/network/ESP32-Code.code-workspace
 PR_DESCRIPTION.md
