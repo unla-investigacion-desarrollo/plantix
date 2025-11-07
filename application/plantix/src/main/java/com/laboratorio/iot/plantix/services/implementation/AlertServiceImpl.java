@@ -1,11 +1,14 @@
 package com.laboratorio.iot.plantix.services.implementation;
 
+import com.laboratorio.iot.plantix.configuration.mqtt.hw390.out.MQTTHw390Gateway;
+import com.laboratorio.iot.plantix.dtos.mqtt.HW390ConfigurationDTO;
 import com.laboratorio.iot.plantix.entities.Field;
 import com.laboratorio.iot.plantix.entities.SensorHistory;
 import com.laboratorio.iot.plantix.repositories.IDeviceHistoryRepository;
 import com.laboratorio.iot.plantix.services.IAlertService;
 import com.laboratorio.iot.plantix.services.IAlertSettingsService;
 import com.laboratorio.iot.plantix.services.IMailService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,14 +26,21 @@ public class AlertServiceImpl implements IAlertService {
     private final IMailService mailService;
     private final IAlertSettingsService settingsService;
     private final IDeviceHistoryRepository deviceHistoryRepository;
+    private final MQTTHw390Gateway mqttHw390Gateway;
+    private final ObjectMapper objectMapper;
 
     // memoria anti-spam por campo/métrica y por dispositivo
     private final Map<String, LocalDateTime> lastSent = new ConcurrentHashMap<>();
 
-    public AlertServiceImpl(IMailService mailService, IAlertSettingsService settingsService, IDeviceHistoryRepository deviceHistoryRepository) {
+    public AlertServiceImpl(IMailService mailService, IAlertSettingsService settingsService,
+                           IDeviceHistoryRepository deviceHistoryRepository,
+                           MQTTHw390Gateway mqttHw390Gateway,
+                           ObjectMapper objectMapper) {
         this.mailService = mailService;
         this.settingsService = settingsService;
         this.deviceHistoryRepository = deviceHistoryRepository;
+        this.mqttHw390Gateway = mqttHw390Gateway;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -126,6 +136,23 @@ public class AlertServiceImpl implements IAlertService {
         } catch (Exception e) {
             logger.error("Error enviando correo de prueba: {}", e.getMessage(), e);
             throw new RuntimeException("Error al enviar correo de prueba: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void sendHw390Configuration(Float minValue, Float maxValue) {
+        try {
+            logger.info("Enviando configuración HW390 - Min: {}, Max: {}", minValue, maxValue);
+
+            HW390ConfigurationDTO configDTO = new HW390ConfigurationDTO(minValue, maxValue);
+            String jsonPayload = objectMapper.writeValueAsString(configDTO);
+
+            mqttHw390Gateway.sendToMqtt(jsonPayload);
+
+            logger.info("Configuración HW390 enviada exitosamente al tópico MQTT");
+        } catch (Exception e) {
+            logger.error("Error enviando configuración HW390 por MQTT: {}", e.getMessage(), e);
+            throw new RuntimeException("Error al enviar configuración HW390: " + e.getMessage(), e);
         }
     }
 }

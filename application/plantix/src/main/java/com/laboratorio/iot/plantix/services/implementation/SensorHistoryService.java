@@ -6,6 +6,7 @@ import com.laboratorio.iot.plantix.dtos.mqtt.MQTTInputDTO;
 import com.laboratorio.iot.plantix.dtos.mqtt.dht11.DHT11Data;
 import com.laboratorio.iot.plantix.dtos.mqtt.dht11.DHT11MQTTInputDTO;
 import com.laboratorio.iot.plantix.dtos.mqtt.hw390.HW390MQTTInputDTO;
+import com.laboratorio.iot.plantix.dtos.mqtt.sensor.SubstrateMoistureMQTTInputDTO;
 import com.laboratorio.iot.plantix.entities.Sensor;
 import com.laboratorio.iot.plantix.entities.SensorHistory;
 import com.laboratorio.iot.plantix.exceptions.mqtt.MQTTInvalidPayloadException;
@@ -70,7 +71,8 @@ public class SensorHistoryService implements ISensorHistoryService {
         if(SensorHistoryValidator.thisSensorIsNotValid(sensorHistory.getSensor()))
                 throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Sensor is null.");
         if(SensorHistoryValidator.thisTimestampIsNotValid(sensorHistory.getTimestamp()))
-                throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Timestamp is null.");
+            throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided Timestamp is null.");
+
         // Cada validación varía del dto, ya que cada dto recibe data distinta
         if(dto instanceof DHT11MQTTInputDTO dht11MQTTInputDTO) {
             DHT11Data data = dht11MQTTInputDTO.getData();
@@ -82,6 +84,9 @@ public class SensorHistoryService implements ISensorHistoryService {
             if(SensorHistoryValidator.thisHW390DataIsNotValid(data))
                 throw new InvalidSensorHistoryException("Failed to save given SensorHistory. Provided HW390 Data is empty or has an invalid format.");
             sensorHistory.setData(data);
+        }
+        if(dto instanceof SubstrateMoistureMQTTInputDTO moistureDTO) {
+            sensorHistory.setData(String.valueOf(moistureDTO.getValue()));
         }
         SensorHistory saved = sensorHistoryRepository.save(sensorHistory);
         // disparar alertas

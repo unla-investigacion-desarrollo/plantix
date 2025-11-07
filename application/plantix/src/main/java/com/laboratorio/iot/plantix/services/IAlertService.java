@@ -5,4 +5,5 @@ import com.laboratorio.iot.plantix.entities.SensorHistory;
 public interface IAlertService {
     void processNewReading(SensorHistory savedHistory);
     void sendTestEmail(String[] recipients);
+    void sendHw390Configuration(Float minValue, Float maxValue);
 }

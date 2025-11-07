@@ -4,4 +4,5 @@ public class MQTTOutputChannelInformation {
     public static final String DHT11_CHANNEL = "dht11OutputChannel";
     public static final String ELECTROVALVE_OPEN_CHANNEL = "electrovalveOpenOutputChannel";
     public static final String ELECTROVALVE_CLOSE_CHANNEL = "electrovalveCloseOutputChannel";
+    public static final String HW390_CONFIGURATION_CHANNEL = "hw390ConfigurationOutputChannel";
 }
