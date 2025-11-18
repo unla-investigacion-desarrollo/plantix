@@ -21,6 +21,15 @@ public class MQTTBeansConfiguration {
         options.setServerURIs(new String[] { MQTTBrokerInformation.URL });
         options.setUserName(MQTTBrokerInformation.USERNAME);
         options.setPassword(MQTTBrokerInformation.PASSWORD.toCharArray());
+
+        // Reconexión automática
+        options.setAutomaticReconnect(true);
+        options.setCleanSession(false);
+
+        // Configuración de reintentos
+        options.setConnectionTimeout(10); // segundos
+        options.setKeepAliveInterval(60); // segundos
+        options.setMaxReconnectDelay(128000); // milisegundos
         return options;
     }
 }
