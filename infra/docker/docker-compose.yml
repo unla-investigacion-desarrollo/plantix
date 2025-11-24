@@ -6,6 +6,9 @@ services:
     container_name: plantix-app
     volumes:
       - ../../application/plantix:/app
+    networks:
+      - main_network
+      - local_network
     environment:
       # Base de datos
       MYSQL_DB_USERNAME: "${MYSQL_DB_USERNAME}"
@@ -29,7 +32,7 @@ services:
       SPRING_DEVTOOLS_RESTART_ENABLED: "true"
       SPRING_DEVTOOLS_LIVERELOAD_ENABLED: "true"
     ports:
-      - "8080:8080"
+      - 8080:8080
     restart: unless-stopped
     depends_on:
       plantix-db:
@@ -48,6 +51,8 @@ services:
       - ../../application/plantixDB:/docker-entrypoint-initdb.d
     ports:
       - "3307:3306"
+    networks:
+      - local_network
 
   plantix-broker:
     image: eclipse-mosquitto
@@ -59,7 +64,15 @@ services:
       - ../../brokerMQTT/data:/mosquitto/data
       - ../../brokerMQTT/log:/mosquitto/log
     restart: unless-stopped
+    networks:
+      - local_network
 
 volumes:
   plantix_db_data:
+
+networks:
+  main_network:
+    external: true
+  local_network:
+    external: false
 
