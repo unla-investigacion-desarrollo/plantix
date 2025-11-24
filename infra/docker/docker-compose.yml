@@ -1,9 +1,9 @@
 services:
-  plantix:
+  plantix-app:
     build:
       context: ../../application/plantix
       dockerfile: Dockerfile
-    container_name: plantix
+    container_name: plantix-app
     volumes:
       - ../../application/plantix:/app
     environment:
@@ -21,7 +21,7 @@ services:
       ALERT_DEFAULT_RECIPIENTS: "${EMAIL}"
 
       # MQTT del stack docker
-      MQTT_URL: "tcp://broker-mosquitto:1883"
+      MQTT_URL: "tcp://plantix-broker:1883"
       MQTT_USERNAME: "${MQTT_USERNAME}"
       MQTT_PASSWORD: "${MQTT_PASSWORD}"
 
@@ -34,7 +34,7 @@ services:
     depends_on:
       plantix-db:
         condition: service_started
-      broker-mosquitto:
+      plantix-broker:
         condition: service_started
 
   plantix-db:
@@ -49,9 +49,9 @@ services:
     ports:
       - "3307:3306"
 
-  broker-mosquitto:
+  plantix-broker:
     image: eclipse-mosquitto
-    container_name: broker-mosquitto
+    container_name: plantix-broker
     ports:
       - "1883:1883"
     volumes:
