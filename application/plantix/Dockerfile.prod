@@ -1,0 +1,30 @@
+# --- ETAPA 1: BUILD (El constructor) ---
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
+
+WORKDIR /app
+
+# 1. Copiamos dependencias y las bajamos (Caché)
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# 2. Copiamos el código fuente REAL
+COPY src ./src
+
+# 3. Compilamos el .jar (saltando tests para ir rápido, idealmente córtelos en CI)
+RUN mvn clean package -DskipTests
+
+# --- ETAPA 2: RUNTIME (La imagen final ligera) ---
+# Usamos Alpine o una distro ligera solo con JRE (sin Maven)
+FROM eclipse-temurin:17-jre-alpine
+
+WORKDIR /app
+
+# 4. Copiamos SOLO el .jar desde la etapa anterior
+#    Asegúrate de que tu pom.xml genere el jar en target/
+COPY --from=builder /app/target/*.jar app.jar
+
+# 5. Variables y Puertos
+EXPOSE 8080
+
+# 6. Comando de arranque directo al JAR (nada de mvn spring-boot:run)
+ENTRYPOINT ["java", "-jar", "app.jar"]
