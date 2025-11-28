@@ -1,11 +1,14 @@
 services:
-  plantix:
+  plantix-app:
     build:
       context: ../../application/plantix
       dockerfile: Dockerfile
-    container_name: plantix
+    container_name: plantix-app
     volumes:
       - ../../application/plantix:/app
+    networks:
+      - main_network
+      - local_network
     environment:
       # Base de datos
       MYSQL_DB_USERNAME: "${MYSQL_DB_USERNAME}"
@@ -21,7 +24,7 @@ services:
       ALERT_DEFAULT_RECIPIENTS: "${EMAIL}"
 
       # MQTT del stack docker
-      MQTT_URL: "tcp://broker-mosquitto:1883"
+      MQTT_URL: "tcp://plantix-broker:1883"
       MQTT_USERNAME: "${MQTT_USERNAME}"
       MQTT_PASSWORD: "${MQTT_PASSWORD}"
 
@@ -29,12 +32,12 @@ services:
       SPRING_DEVTOOLS_RESTART_ENABLED: "true"
       SPRING_DEVTOOLS_LIVERELOAD_ENABLED: "true"
     ports:
-      - "8080:8080"
+      - 8080:8080
     restart: unless-stopped
     depends_on:
       plantix-db:
-        condition: service_healthy
-      broker-mosquitto:
+        condition: service_started
+      plantix-broker:
         condition: service_started
 
   plantix-db:
@@ -48,16 +51,12 @@ services:
       - ../../application/plantixDB:/docker-entrypoint-initdb.d
     ports:
       - "3307:3306"
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_MYSQL_ROOT_PASSWORD}"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-      start_period: 20s
+    networks:
+      - local_network
 
-  broker-mosquitto:
+  plantix-broker:
     image: eclipse-mosquitto
-    container_name: broker-mosquitto
+    container_name: plantix-broker
     ports:
       - "1883:1883"
     volumes:
@@ -65,7 +64,15 @@ services:
       - ../../brokerMQTT/data:/mosquitto/data
       - ../../brokerMQTT/log:/mosquitto/log
     restart: unless-stopped
+    networks:
+      - local_network
 
 volumes:
   plantix_db_data:
+
+networks:
+  main_network:
+    external: true
+  local_network:
+    external: false
 

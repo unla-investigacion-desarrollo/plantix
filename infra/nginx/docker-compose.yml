@@ -1,0 +1,15 @@
+services:
+  reverse-proxy:
+    image: nginx:1.24.0
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    volumes:
+      - ./reverse_proxy/conf.d:/etc/nginx/conf.d
+    networks:
+      - main_network
+
+networks:
+  main_network:
+    external: true
