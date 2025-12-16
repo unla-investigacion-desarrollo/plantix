@@ -1,0 +1,20 @@
+services:
+  registry:
+    container_name: registry-emi
+    image: registry:2
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    volumes:
+      - ./auth:/auth
+    environment:
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+    networks:
+      - main_network
+
+networks:
+  main_network:
+    external: true
+
